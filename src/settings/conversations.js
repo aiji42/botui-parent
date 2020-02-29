@@ -1,0 +1,300 @@
+export const conversations = [
+  {
+    id: 'hello',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'いらっしゃいませ！案内にしたがってお手続きください。'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご購入完了まで、私がお手伝いさせていただきます。'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-gender',
+    trigger: 'hello',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'まずはあなたの性別を教えて下さい。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormGender'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-name',
+    trigger: 'userInfo-gender',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お名前を教えて下さい。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormName'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-address',
+    trigger: 'userInfo-name',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '次にご住所をお願いします。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormAddress'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-email',
+    trigger: 'userInfo-address',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'メールアドレスをお願いします。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormEmail'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-tel',
+    trigger: 'userInfo-email',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お届けの事でご連絡する場合がありますので、繋がる電話番号をお願いします。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormTel'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-birthday',
+    trigger: 'userInfo-tel',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '生年月日を教えてください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormBirthDay'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-mailmagazine',
+    trigger: 'userInfo-birthday',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'neltureのお得情報などが届くメールマガジンに登録しますか？'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormMailMagazine'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-delivery',
+    trigger: 'userInfo-mailmagazine',
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectableDeriveryDateTime',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryDateChoices'
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryTimeChoices'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お届け日時の希望を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormDeliveryDateTime'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-payment',
+    trigger: 'deliveryPayment-delivery',
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentMethods'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お支払い方法を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormPayment'
+        }
+      }
+    ]
+  },
+  {
+    id: 'cashless',
+    trigger: 'deliveryPayment-payment',
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isCashLess',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'component',
+        options: {
+          content: 'CashLess'
+        }
+      }
+    ]
+  },
+  {
+    id: 'confirm',
+    trigger: 'cashless',
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'confirm'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご購入内容の確認を行い、お間違いがなければ確定ボタンをタップしてください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormConfirm'
+        }
+      }
+    ]
+  },
+  {
+    id: 'conversion',
+    trigger: 'confirm',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご購入ありがとうございます。お手続きをしております。'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'conversion',
+        whenReturn: {
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お支払いページへ遷移します。'
+        }
+      }
+    ]
+  }
+];
