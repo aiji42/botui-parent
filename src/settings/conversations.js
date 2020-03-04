@@ -21,6 +21,7 @@ export const conversations = [
   {
     id: 'userInfo-gender',
     trigger: 'hello',
+    countable: true,
     actions: [
       {
         human: false,
@@ -41,6 +42,7 @@ export const conversations = [
   {
     id: 'userInfo-name',
     trigger: 'userInfo-gender',
+    countable: true,
     actions: [
       {
         human: false,
@@ -61,6 +63,7 @@ export const conversations = [
   {
     id: 'userInfo-address',
     trigger: 'userInfo-name',
+    countable: true,
     actions: [
       {
         human: false,
@@ -81,6 +84,7 @@ export const conversations = [
   {
     id: 'userInfo-email',
     trigger: 'userInfo-address',
+    countable: true,
     actions: [
       {
         human: false,
@@ -101,6 +105,7 @@ export const conversations = [
   {
     id: 'userInfo-tel',
     trigger: 'userInfo-email',
+    countable: true,
     actions: [
       {
         human: false,
@@ -121,6 +126,7 @@ export const conversations = [
   {
     id: 'userInfo-birthday',
     trigger: 'userInfo-tel',
+    countable: true,
     actions: [
       {
         human: false,
@@ -141,6 +147,7 @@ export const conversations = [
   {
     id: 'userInfo-mailmagazine',
     trigger: 'userInfo-birthday',
+    countable: true,
     actions: [
       {
         human: false,
@@ -161,6 +168,7 @@ export const conversations = [
   {
     id: 'deliveryPayment-delivery',
     trigger: 'userInfo-mailmagazine',
+    countable: true,
     actions: [
       {
         human: false,
@@ -200,6 +208,7 @@ export const conversations = [
   {
     id: 'deliveryPayment-payment',
     trigger: 'deliveryPayment-delivery',
+    countable: true,
     actions: [
       {
         human: false,
@@ -290,11 +299,37 @@ export const conversations = [
       },
       {
         human: false,
+        type: 'function',
+        function: 'shouldGoPaymentPage',
+        whenReturn: {
+          true: { id: 'go-payment-page' },
+          false: { id: 'go-thx-page' }
+        }
+      },
+    ]
+  },
+  {
+    id: 'go-payment-page',
+    actions: [
+      {
+        human: false,
         type: 'message',
         options: {
-          content: 'お支払いページへ遷移します。'
+          content: '自動的にお支払いページへ移動します。'
         }
       }
     ]
-  }
+  },
+  {
+    id: 'go-thx-page',
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご注文完了です。自動的にページを移動します。'
+        }
+      }
+    ]
+  },
 ];

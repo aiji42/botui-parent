@@ -4,7 +4,8 @@ import {
   deliveryDateChoices,
   deliveryTimeChoices,
   confirm,
-  conversion
+  conversion,
+  shouldGoPaymentPage
 } from '../apis';
 import Postmate from 'postmate';
 import * as settings from '../settings';
@@ -59,6 +60,10 @@ handshake.then(child => {
 
   child.on('conversion', async (data) => {
     child.call('publishMessage', ['conversion', await conversion(data)]);
+  });
+
+  child.on('shouldGoPaymentPage', async (data) => {
+    child.call('publishMessage', ['shouldGoPaymentPage', await shouldGoPaymentPage(data)]);
   });
 });
 
