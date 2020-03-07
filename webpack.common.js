@@ -1,4 +1,5 @@
 import path from 'path'
+import { EnvironmentPlugin } from 'webpack'
 
 export default {
   entry: [
@@ -28,5 +29,10 @@ export default {
         use: 'url-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new EnvironmentPlugin({
+      BOTUI_CHILD_ENDPOINT: process.env.BOTUI_CHILD_ENDPOINT
+    })
+  ]
 }

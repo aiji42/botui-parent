@@ -17,7 +17,7 @@ document.body.insertBefore(div, document.body.firstChild);
 
 const handshake = new Postmate({
   container: div,
-  url: 'https://gifted-morse-5185fa.netlify.com',
+  url: process.env.BOTUI_CHILD_ENDPOINT,
   name: 'botui-child',
   classListArray: ['botui-child']
 });
