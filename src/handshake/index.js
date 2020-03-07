@@ -28,8 +28,14 @@ handshake.then(child => {
   child.frame.setAttribute('width', '100%');
   child.frame.setAttribute('frameborder', 'no');
 
-  child.on('readyToChatStart', () => {
-    child.call('chatStart');
+  child.on('readyToStartChat', () => {
+    child.call('startChat');
+    loading.style.opacity = 0;
+    loading.style.display = 'none';
+  });
+
+  child.on('doNotStartChat', () => {
+    child.destroy();
     loading.style.opacity = 0;
     loading.style.display = 'none';
   });

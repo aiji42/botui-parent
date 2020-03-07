@@ -32,7 +32,8 @@ export default {
   },
   plugins: [
     new EnvironmentPlugin({
-      BOTUI_CHILD_ENDPOINT: process.env.BOTUI_CHILD_ENDPOINT
+      BOTUI_CHILD_ENDPOINT: process.env.BOTUI_CHILD_ENDPOINT,
+      BOTUI_ACTIVATE_RATE: process.env.BOTUI_ACTIVATE_RATE
     })
   ]
 }

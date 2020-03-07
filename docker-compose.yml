@@ -8,6 +8,7 @@ services:
     working_dir: /app
     environment:
       - BOTUI_CHILD_ENDPOINT=https://localhost:8081
+      - BOTUI_ACTIVATE_RATE=1
     volumes:
       - .:/app:cached
       - node_modules:/app/node_modules

@@ -1,0 +1,1 @@
+export const activateRate = process.env.BOTUI_ACTIVATE_RATE;
