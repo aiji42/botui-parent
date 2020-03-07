@@ -35,7 +35,8 @@ export default {
       NODE_ENV: process.env.NODE_ENV,
       BOTUI_CHILD_ENDPOINT: process.env.BOTUI_CHILD_ENDPOINT,
       BOTUI_ACTIVATE_RATE: process.env.BOTUI_ACTIVATE_RATE,
-      BUGSNAG_API_KEY: process.env.BUGSNAG_API_KEY
+      BUGSNAG_API_KEY: process.env.BUGSNAG_API_KEY,
+      COMMIT_REF: process.env.COMMIT_REF
     })
   ]
 }
