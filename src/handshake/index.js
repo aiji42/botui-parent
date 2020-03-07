@@ -10,6 +10,7 @@ import {
 import Postmate from 'postmate';
 import * as settings from '../settings';
 import loading from '../loading';
+import errorHandler from '../errorHandler';
 
 const div = document.createElement('div');
 div.classList.add('botui-child-panel');
@@ -21,6 +22,14 @@ const handshake = new Postmate({
   name: 'botui-child',
   classListArray: ['botui-child']
 });
+
+const callWrapper = async (caller) => {
+  try {
+    await caller();
+  } catch (e) {
+    errorHandler(e);
+  }
+};
 
 handshake.then(child => {
   child.call('setting', settings);
@@ -40,36 +49,52 @@ handshake.then(child => {
     loading.style.display = 'none';
   });
 
-  child.on('isSelectableDeriveryDateTime', async (data) => {
-    child.call('publishMessage', ['isSelectableDeriveryDateTime', await isSelectableDeriveryDateTime(data)]);
+  child.on('isSelectableDeriveryDateTime', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['isSelectableDeriveryDateTime', await isSelectableDeriveryDateTime(data)]);
+    });
   });
 
-  child.on('paymentMethods', async (data) => {
-    child.call('publishMessage', ['paymentMethods', await paymentMethods(data)]);
+  child.on('paymentMethods', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['paymentMethods', await paymentMethods(data)]);
+    });
   });
 
-  child.on('deliveryDateChoices', async (data) => {
-    child.call('publishMessage', ['deliveryDateChoices', await deliveryDateChoices(data)]);
+  child.on('deliveryDateChoices', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['deliveryDateChoices', await deliveryDateChoices(data)]);
+    });
   });
 
-  child.on('deliveryTimeChoices', async (data) => {
-    child.call('publishMessage', ['deliveryTimeChoices', await deliveryTimeChoices(data)]);
+  child.on('deliveryTimeChoices', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['deliveryTimeChoices', await deliveryTimeChoices(data)]);
+    });
   });
 
-  child.on('isCashLess', async (data) => {
-    child.call('publishMessage', ['isCashLess', data.payment === '5']);
+  child.on('isCashLess', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['isCashLess', data.payment === '5']);
+    });
   });
 
-  child.on('confirm', async (data) => {
-    child.call('publishMessage', ['confirm', await confirm(data)]);
+  child.on('confirm', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['confirm', await confirm(data)]);
+    });
   });
 
-  child.on('conversion', async (data) => {
-    child.call('publishMessage', ['conversion', await conversion(data)]);
+  child.on('conversion', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['conversion', await conversion(data)]);
+    });
   });
 
-  child.on('shouldGoPaymentPage', async (data) => {
-    child.call('publishMessage', ['shouldGoPaymentPage', await shouldGoPaymentPage(data)]);
+  child.on('shouldGoPaymentPage', (data) => {
+    callWrapper(async () => {
+      child.call('publishMessage', ['shouldGoPaymentPage', await shouldGoPaymentPage(data)]);
+    });
   });
 });
 

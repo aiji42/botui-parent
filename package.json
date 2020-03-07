@@ -30,6 +30,7 @@
     "stats": "webpack-bundle-analyzer dist/stats.json --host 0.0.0.0"
   },
   "dependencies": {
+    "@bugsnag/js": "^6.5.2",
     "libphonenumber-js": "^1.7.44",
     "loaders.css": "^0.1.2",
     "postmate": "^1.5.2"

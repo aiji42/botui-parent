@@ -7,11 +7,13 @@ services:
       - 8888:8888
     working_dir: /app
     environment:
+      - NODE_ENV=development
       - BOTUI_CHILD_ENDPOINT=https://localhost:8081
       - BOTUI_ACTIVATE_RATE=1
+      - BUGSNAG_API_KEY=xxxxxxxxxxxxx
     volumes:
       - .:/app:cached
       - node_modules:/app/node_modules
-    command: sh -c "yarn && npm run start"
+    command: sh -c "yarn && yarn run start"
 volumes:
   node_modules:
