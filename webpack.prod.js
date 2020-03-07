@@ -20,7 +20,8 @@ export default merge(common, {
   plugins: [
     new BugsnagBuildReporterPlugin({
       apiKey: process.env.BUGSNAG_API_KEY,
-      appVersion: process.env.COMMIT_REF
+      appVersion: process.env.COMMIT_REF,
+      releaseStage: process.env.NODE_ENV
     }),
     new BugsnagSourceMapUploaderPlugin({
       apiKey: process.env.BUGSNAG_API_KEY,
