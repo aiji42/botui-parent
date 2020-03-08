@@ -1,0 +1,1 @@
+export const serviceCode = process.env.SERVICE_CODE;

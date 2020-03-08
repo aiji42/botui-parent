@@ -20,7 +20,9 @@ const shouldStartChat = ({ activateRate }) => {
 
 window.dataLayerBotuiParent.push({
   event: 'analytics', eventCategory: 'botui-parent', eventAction: 'activate',
-  eventLabel: shouldStartChat(setting) ? 'true' : 'false'
+  eventLabel: shouldStartChat(setting) ? 'true' : 'false',
+  serviceCode: setting.serviceCode,
+  stage: process.env.NODE_ENV
 });
 
 let handshake = new Promise(() => { });

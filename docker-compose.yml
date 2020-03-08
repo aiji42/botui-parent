@@ -8,6 +8,7 @@ services:
     working_dir: /app
     environment:
       - NODE_ENV=development
+      - SERVICE_CODE=demo
       - BOTUI_CHILD_ENDPOINT=https://localhost:8081
       - BOTUI_ACTIVATE_RATE=1
       - BUGSNAG_API_KEY=xxxxxxxxxxxxx
