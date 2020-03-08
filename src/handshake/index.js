@@ -8,7 +8,7 @@ import {
   shouldGoPaymentPage
 } from '../apis';
 import Postmate from 'postmate';
-import * as settings from '../settings';
+import * as setting from '../settings';
 import loading from '../loading';
 import errorHandler from '../errorHandler';
 
@@ -20,7 +20,8 @@ const handshake = new Postmate({
   container: div,
   url: process.env.BOTUI_CHILD_ENDPOINT,
   name: 'botui-child',
-  classListArray: ['botui-child']
+  classListArray: ['botui-child'],
+  model: { setting }
 });
 
 const callWrapper = async (caller) => {
@@ -32,7 +33,6 @@ const callWrapper = async (caller) => {
 };
 
 handshake.then(child => {
-  child.call('setting', settings);
   child.frame.setAttribute('height', '100%');
   child.frame.setAttribute('width', '100%');
   child.frame.setAttribute('frameborder', 'no');

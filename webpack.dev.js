@@ -15,11 +15,9 @@ export default merge(common, {
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    host: '0.0.0.0',
+    https: true,
     disableHostCheck: true,
     public: 'localhost:8080',
-    hot: false,
-    inline: false,
-    liveReload: false
+    host: '0.0.0.0'
   }
 })

@@ -24,5 +24,11 @@ export const confirm = async (data) => {
 
   const pay = reflexiveSplice(subdivideInnerText(step.document.querySelector('.detail_pay')), 2);
 
-  return { items, delivery, pay };
+  const supplement = `
+    <a href="https://nelture.com/entry/kiyaku.php" target="_blank">ご利用規約</a>と
+    <a href="https://nelture.com/guide/privacy.php" target="_blank">プライバシーポリシー</a>
+    を必ずお読みください。<br />ボタンを押すことで利用規約に同意した事になります。
+  `;
+
+  return { items, delivery, pay, supplement };
 };
