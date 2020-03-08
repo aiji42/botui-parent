@@ -27,7 +27,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'まずはあなたの性別を教えて下さい。'
+          content: 'まずはあなたの性別を選択してください。'
         }
       },
       {
