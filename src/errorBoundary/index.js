@@ -5,4 +5,12 @@ const errorHandler = (e) => {
   bugsnagClient.notify(e);
 };
 
-export default errorHandler;
+const errorBoundary = async (func) => {
+  try {
+    await func();
+  } catch (e) {
+    errorHandler(e);
+  }
+};
+
+export default errorBoundary;
