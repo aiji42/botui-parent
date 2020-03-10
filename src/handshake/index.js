@@ -1,4 +1,5 @@
 import {
+  analyticsClientId,
   isSelectableDeriveryDateTime,
   paymentMethods,
   deliveryDateChoices,
@@ -55,6 +56,12 @@ if (shouldStartChat(setting)) {
     loading.style.opacity = 0;
     loading.style.display = 'none';
   });
+
+  child.on('getGAClientId', () => {
+    errorBoundary(async () => {
+      child.call('publishMessage', ['getGAClientId', await analyticsClientId()])
+    })
+  })
 
   child.on('isSelectableDeriveryDateTime', (data) => {
     errorBoundary(async () => {
