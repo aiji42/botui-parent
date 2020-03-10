@@ -59,9 +59,9 @@ if (shouldStartChat(setting)) {
 
   child.on('getGAClientId', () => {
     errorBoundary(async () => {
-      child.call('publishMessage', ['getGAClientId', await analyticsClientId()])
-    })
-  })
+      child.call('publishMessage', ['getGAClientId', await analyticsClientId()]);
+    });
+  });
 
   child.on('isSelectableDeriveryDateTime', (data) => {
     errorBoundary(async () => {
