@@ -1,4 +1,4 @@
-window.dataLayerBotuiParent = [];
+import { serviceCode } from '../settings';
 
 const script = document.createElement('script');
 script.textContent = `
@@ -7,6 +7,10 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayerBotuiParent','GTM-KB5R8M2');
+dataLayerBotuiParent.push({
+  serviceCode: '${serviceCode}',
+  stage: '${process.env.NODE_ENV}'
+});
 `;
 document.head.appendChild(script);
 
@@ -16,3 +20,5 @@ noScript.innerHTML = `
 height="0" width="0" style="display:none;visibility:hidden"></iframe>
 `;
 document.body.insertBefore(noScript, document.body.firstChild);
+
+export const dataLayerBotui = window.dataLayerBotuiParent;

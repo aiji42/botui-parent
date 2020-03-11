@@ -1,5 +1,4 @@
 import {
-  analyticsClientId,
   isSelectableDeriveryDateTime,
   paymentMethods,
   deliveryDateChoices,
@@ -13,17 +12,15 @@ import * as setting from '../settings';
 import loading from '../loading';
 import errorBoundary from '../errorBoundary';
 import { saveStoreValue, findStoredValue } from '../dataStore';
-import '../gtm';
+import { dataLayerBotui } from '../gtm';
 
 const shouldStartChat = ({ activateRate }) => {
   return saveStoreValue('activeate', findStoredValue('activeate', Math.random() <= activateRate));
 };
 
-window.dataLayerBotuiParent.push({
+dataLayerBotui.push({
   event: 'analytics', eventCategory: 'botui-parent', eventAction: 'activate',
   eventLabel: shouldStartChat(setting) ? 'true' : 'false',
-  serviceCode: setting.serviceCode,
-  stage: process.env.NODE_ENV
 });
 
 let handshake = new Promise(() => { });
@@ -57,9 +54,9 @@ if (shouldStartChat(setting)) {
     loading.style.display = 'none';
   });
 
-  child.on('getGAClientId', () => {
+  child.on('dataLayerPush', (data) => {
     errorBoundary(async () => {
-      child.call('publishMessage', ['getGAClientId', await analyticsClientId()]);
+      dataLayerBotui.push(data);
     });
   });
 
