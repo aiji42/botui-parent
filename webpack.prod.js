@@ -1,6 +1,7 @@
 import merge from 'webpack-merge'
 import common from './webpack.common.js'
 import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {
   BugsnagBuildReporterPlugin,
   BugsnagSourceMapUploaderPlugin
@@ -18,6 +19,9 @@ export default merge(common, {
     maxAssetSize: 500000,
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    }),
     new BugsnagBuildReporterPlugin({
       apiKey: process.env.BUGSNAG_API_KEY,
       appVersion: process.env.COMMIT_REF,
