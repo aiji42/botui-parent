@@ -279,7 +279,7 @@ export const conversations = [
     ]
   },
   {
-    id: 'conversion',
+    id: 'cv-repare',
     trigger: 'confirm',
     actions: [
       {
@@ -292,7 +292,7 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'conversion',
+        function: 'cvPrepare',
         whenReturn: {
           true: 'continue'
         }
@@ -302,14 +302,14 @@ export const conversations = [
         type: 'function',
         function: 'shouldGoPaymentPage',
         whenReturn: {
-          true: { id: 'go-payment-page' },
-          false: { id: 'go-thx-page' }
+          true: { id: 'conversion-not-cash' },
+          false: { id: 'conversion-cash' }
         }
       },
     ]
   },
   {
-    id: 'go-payment-page',
+    id: 'conversion-not-cash',
     actions: [
       {
         human: false,
@@ -317,11 +317,16 @@ export const conversations = [
         options: {
           content: '自動的にお支払いページへ移動します。'
         }
-      }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'convertion'
+      },
     ]
   },
   {
-    id: 'go-thx-page',
+    id: 'conversion-cash',
     actions: [
       {
         human: false,
@@ -329,7 +334,12 @@ export const conversations = [
         options: {
           content: 'ご注文完了です。自動的にページを移動します。'
         }
-      }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'convertion'
+      },
     ]
   },
 ];

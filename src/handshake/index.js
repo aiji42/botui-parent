@@ -4,6 +4,7 @@ import {
   deliveryDateChoices,
   deliveryTimeChoices,
   confirm,
+  conversionPrepare,
   conversion,
   shouldGoPaymentPage
 } from '../apis';
@@ -91,6 +92,12 @@ if (shouldStartChat(setting)) {
   child.on('confirm', (data) => {
     errorBoundary(async () => {
       child.call('publishMessage', ['confirm', await confirm(data)]);
+    });
+  });
+
+  child.on('cvPrepare', (data) => {
+    errorBoundary(async () => {
+      child.call('publishMessage', ['cvPrepare', await conversionPrepare(data)]);
     });
   });
 
