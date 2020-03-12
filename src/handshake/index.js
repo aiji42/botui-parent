@@ -27,7 +27,7 @@ let handshake = new Promise(() => { });
 if (shouldStartChat(setting)) {
   const div = document.createElement('div');
   div.classList.add('botui-child-panel');
-  document.body.insertBefore(div, document.body.firstChild);
+  document.body.insertBefore(div, loading.nextSibling);
 
   handshake = new Postmate({
     container: div,
@@ -37,8 +37,7 @@ if (shouldStartChat(setting)) {
     model: { setting }
   });
 } else {
-  loading.style.opacity = 0;
-  loading.style.display = 'none';
+  document.body.removeChild(loading);
 }
 
 (async () => {
@@ -50,8 +49,7 @@ if (shouldStartChat(setting)) {
 
   child.on('readyToStartChat', () => {
     child.call('startChat');
-    loading.style.opacity = 0;
-    loading.style.display = 'none';
+    document.body.removeChild(loading);
   });
 
   child.on('dataLayerPush', (data) => {
