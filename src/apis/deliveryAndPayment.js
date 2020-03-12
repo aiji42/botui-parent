@@ -26,8 +26,7 @@ const deliveryAndPayment = async (data) => {
   const { deliv_date0: delivDate0 } = form.elements;
   const deliveryDate = Array.from((delivDate0 && delivDate0.options) || [])
     .reduce((result, { value, innerText }) => ({ ...result, [value]: innerText }), {});
-  const deliveryTime = json.arrDelivTime
-    .reduce((result, value, index) => ({ ...result, [index]: value }), {});
+  const deliveryTime = json.arrDelivTime;
 
   cache.push({
     payment, isSelectable, deliveryDate, deliveryTime,

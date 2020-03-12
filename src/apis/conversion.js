@@ -1,6 +1,6 @@
 import { confirmStep } from '../steps';
 
-const finalFormEl = []
+const finalFormEl = [];
 
 export const conversionPrepare = async (data) => {
   const step = await confirmStep(data);

@@ -292,7 +292,7 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'cvPrepare',
+        function: 'conversionPrepare',
         whenReturn: {
           true: 'continue'
         }
@@ -321,7 +321,7 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'convertion'
+        function: 'conversion'
       },
     ]
   },
@@ -338,7 +338,7 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'convertion'
+        function: 'conversion'
       },
     ]
   },

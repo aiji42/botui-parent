@@ -95,9 +95,9 @@ if (shouldStartChat(setting)) {
     });
   });
 
-  child.on('cvPrepare', (data) => {
+  child.on('conversionPrepare', (data) => {
     errorBoundary(async () => {
-      child.call('publishMessage', ['cvPrepare', await conversionPrepare(data)]);
+      child.call('publishMessage', ['conversionPrepare', await conversionPrepare(data)]);
     });
   });
 
