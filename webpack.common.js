@@ -11,12 +11,12 @@ export default {
     filename: 'main.js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       },
