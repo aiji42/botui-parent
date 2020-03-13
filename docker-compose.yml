@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_ENV=development
       - SERVICE_CODE=demo
-      - BOTUI_CHILD_ENDPOINT=https://localhost:8081
+      - BOTUI_CHILD_ENDPOINT=https://child.botui.jp
       - BOTUI_ACTIVATE_RATE=1
       - BUGSNAG_API_KEY=xxxxxxxxxxxxx
     volumes:

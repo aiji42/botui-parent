@@ -4,7 +4,7 @@ import { EnvironmentPlugin } from 'webpack'
 export default {
   entry: [
     '@babel/polyfill',
-    path.resolve(__dirname, 'src', 'index.js')
+    path.resolve(__dirname, 'src', 'index.jsx')
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
