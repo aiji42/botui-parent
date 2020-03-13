@@ -39,6 +39,8 @@ if (shouldStartChat(setting)) {
   });
 } else {
   document.body.removeChild(loading);
+  document.querySelector('html').style.height = '';
+  document.body.style.height = '';
 }
 
 (async () => {
