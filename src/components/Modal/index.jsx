@@ -5,7 +5,6 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 const style = {
   overlay: {
-    width: '95%',
     position: 'fixed',
     top: 0,
     left: 0,
@@ -31,8 +30,8 @@ const style = {
 
 const Modal = ({ isOpen, children }) => {
   useEffect(() => {
-    !!isOpen && clearAllBodyScrollLocks()
-  }, [isOpen])
+    !!isOpen && clearAllBodyScrollLocks();
+  }, [isOpen]);
 
   return (
     <div>
@@ -40,7 +39,7 @@ const Modal = ({ isOpen, children }) => {
         appElement={document.getElementById('root')}
         isOpen={isOpen}
         onAfterOpen={() => {
-          disableBodyScroll(document.body.querySelector('.ReactModal__Content'))
+          disableBodyScroll(document.body.querySelector('.ReactModal__Content'));
         }}
         style={style}
       >

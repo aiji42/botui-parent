@@ -4,10 +4,11 @@ import ProgressBar from './PregressBar';
 import { css } from '@emotion/core';
 
 const base = css`
-  padding: 0 5px
+  padding: 0 10px
 `;
 
 const span = css`
+  font-family: 'Noto Sans JP', sans-serif;
   position: fixed;
   bottom: 20px;
   right: 0px;
