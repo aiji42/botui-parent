@@ -9,14 +9,14 @@ import { css } from '@emotion/core';
 
 const header = css`
   height: 10%;
-  height: -webkit-calc(60px) ;
-  height: calc(60px);
+  height: -webkit-calc(50px) ;
+  height: calc(50px);
 `;
 
 const handshake = css`
   height: 85%;
-  height: -webkit-calc(100% - 60px - 40px) ;
-  height: calc(100% - 60px - 40px);
+  height: -webkit-calc(100% - 50px - 40px) ;
+  height: calc(100% - 50px - 40px);
 `;
 
 const footer = css`

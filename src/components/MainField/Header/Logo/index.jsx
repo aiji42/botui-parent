@@ -7,7 +7,7 @@ const style = css`
   max-height: 25px;
   margin-right: auto;
   margin-left: auto;
-  padding: 15px 0;
+  padding: 10px 0;
 `;
 
 const Logo = (props) => <img css={style} src={logo} {...props} />;
