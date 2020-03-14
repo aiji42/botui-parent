@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 
 const style = {
   overlay: {
+    width: '95%',
     position: 'fixed',
     top: 0,
     left: 0,
