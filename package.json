@@ -4,14 +4,15 @@
   "main": "index.js",
   "dependencies": {
     "@bugsnag/js": "^6.5.2",
+    "@bugsnag/plugin-react": "^6.5.0",
     "@emotion/core": "^10.0.28",
-    "@emotion/styled": "^10.0.27",
     "libphonenumber-js": "^1.7.44",
     "loaders.css": "^0.1.2",
     "postmate": "^1.5.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-modal": "^3.11.2",
+    "react-spinners": "^0.8.1",
     "store": "^2.0.12"
   },
   "devDependencies": {

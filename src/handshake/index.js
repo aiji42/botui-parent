@@ -1,117 +1,34 @@
-import {
-  isSelectableDeriveryDateTime,
-  paymentMethods,
-  deliveryDateChoices,
-  deliveryTimeChoices,
-  confirm,
-  conversionPrepare,
-  conversion,
-  shouldGoPaymentPage
-} from '../apis';
 import Postmate from 'postmate';
 import * as setting from '../settings';
-import loading from '../loading';
-import errorBoundary from '../errorBoundary';
-import { saveStoreValue, findStoredValue } from '../dataStore';
-import { dataLayerBotui } from '../gtm';
+import actions from './actions';
+import bugsnagClient from '../bugsnagClient';
 
-const shouldStartChat = ({ activateRate }) => {
-  return saveStoreValue('activeate', findStoredValue('activeate', Math.random() <= activateRate));
-};
-
-dataLayerBotui.push({
-  event: 'analytics', eventCategory: 'botui-parent', eventAction: 'activate',
-  eventLabel: shouldStartChat(setting) ? 'true' : 'false',
-});
-
-let handshake = new Promise(() => { });
-if (shouldStartChat(setting)) {
-  const div = document.createElement('div');
-  div.classList.add('botui-child-panel');
-  document.body.insertBefore(div, loading.nextSibling);
-
-  handshake = new Postmate({
-    container: div,
+const shakes = [];
+export default (targetEl) => {
+  if (shakes[0]) return shakes[0];
+  shakes[0] = new Postmate({
+    container: targetEl,
     url: process.env.BOTUI_CHILD_ENDPOINT,
     name: 'botui-child',
     classListArray: ['botui-child'],
     model: { setting }
   });
-} else {
-  document.body.removeChild(loading);
-  document.querySelector('html').style.height = '';
-  document.body.style.height = '';
-}
+  prepare();
+  return shakes[0];
+};
 
-(async () => {
-  const child = await handshake;
+const prepare = async () => {
+  const child = await shakes[0];
 
-  child.frame.setAttribute('height', '100%');
-  child.frame.setAttribute('width', '100%');
-  child.frame.setAttribute('frameborder', 'no');
-
-  child.on('readyToStartChat', () => {
-    child.call('startChat');
-    document.body.removeChild(loading);
-  });
-
-  child.on('dataLayerPush', (data) => {
-    errorBoundary(async () => {
-      dataLayerBotui.push(data);
+  Object.keys(actions).forEach(key => {
+    const action = actions[key];
+    child.on(key, async (data) => {
+      try {
+        child.call('publishMessage', [key, await action(data)]);
+      } catch (e) {
+        console.error(e);
+        bugsnagClient.notify(e);
+      }
     });
   });
-
-  child.on('isSelectableDeriveryDateTime', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['isSelectableDeriveryDateTime', await isSelectableDeriveryDateTime(data)]);
-    });
-  });
-
-  child.on('paymentMethods', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['paymentMethods', await paymentMethods(data)]);
-    });
-  });
-
-  child.on('deliveryDateChoices', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['deliveryDateChoices', await deliveryDateChoices(data)]);
-    });
-  });
-
-  child.on('deliveryTimeChoices', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['deliveryTimeChoices', await deliveryTimeChoices(data)]);
-    });
-  });
-
-  child.on('isCashLess', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['isCashLess', data.payment === '5']);
-    });
-  });
-
-  child.on('confirm', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['confirm', await confirm(data)]);
-    });
-  });
-
-  child.on('conversionPrepare', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['conversionPrepare', await conversionPrepare(data)]);
-    });
-  });
-
-  child.on('conversion', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['conversion', await conversion(data)]);
-    });
-  });
-
-  child.on('shouldGoPaymentPage', (data) => {
-    errorBoundary(async () => {
-      child.call('publishMessage', ['shouldGoPaymentPage', await shouldGoPaymentPage(data)]);
-    });
-  });
-})();
+};
