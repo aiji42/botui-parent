@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
-import HandShake from '../HandShake';
+import HandShake from './HandShake';
 import Loading from '../Loading';
 import Modal from '../Modal';
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from './Header';
+import Footer from './Footer';
 import { css } from '@emotion/core';
 
+const header = css`
+  height: 10%;
+  height: -webkit-calc(60px) ;
+  height: calc(60px);
+`;
+
 const handshake = css`
-  width: 100%;
-  height: 100%;
-  padding: 60px 0 30px 0;
+  height: 85%;
+  height: -webkit-calc(100% - 60px - 30px) ;
+  height: calc(100% - 60px - 30px);
+`;
+
+const footer = css`
+  height: 5%;
+  height: -webkit-calc(30px) ;
+  height: calc(30px);
 `;
 
 const MainField = () => {
   const [prepared, setPreapred] = useState(false);
-  const [percentage, setPercentage] = useState('0%');
+  const [percent, setPercent] = useState(0);
   const [remaining, setRemaining] = useState(null);
 
-  const updateFooter = ([percent, remainingNumber]) => {
-    setPercentage(`${percent}%`);
+  const updateFooter = ([percentage, remainingNumber]) => {
+    setPercent(percentage);
     setRemaining(remainingNumber);
   };
 
@@ -27,11 +39,11 @@ const MainField = () => {
     <ErrorBoundary>
       <Loading isProgressing={!prepared} />
       <Modal isOpen={true}>
-        <Header />
-        <div css={handshake}>
-          <HandShake onPrepared={() => { setPreapred(true); }} updateFooter={updateFooter} />
-        </div>
-        <Footer percentage={percentage} remaining={remaining} />
+        <Header css={header} />
+        <HandShake onPrepared={() => { setPreapred(true); }}
+          updateFooter={updateFooter} css={handshake}
+        />
+        <Footer percent={percent} remaining={remaining} css={footer} />
       </Modal>
     </ErrorBoundary>
   );

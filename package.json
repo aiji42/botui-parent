@@ -9,6 +9,7 @@
     "libphonenumber-js": "^1.7.44",
     "loaders.css": "^0.1.2",
     "postmate": "^1.5.2",
+    "rc-progress": "^2.5.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-modal": "^3.11.2",

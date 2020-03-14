@@ -1,14 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import handshake from '../../handshake';
+import handshake from '../../../handshake';
 import { css } from '@emotion/core';
 
 const style = css`
   width: 100%;
-  height: 100%;
 `;
 
-const HandShake = ({ onPrepared, updateFooter }) => {
+const HandShake = ({ onPrepared, updateFooter, css, ...props }) => {
   const el = useRef(null);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const HandShake = ({ onPrepared, updateFooter }) => {
   }, []);
 
   return (
-    <div css={style} ref={el}></div>
+    <div css={[style, css]} ref={el} {...props}></div>
   );
 };
 
