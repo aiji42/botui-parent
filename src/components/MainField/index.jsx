@@ -15,14 +15,14 @@ const header = css`
 
 const handshake = css`
   height: 85%;
-  height: -webkit-calc(100% - 60px - 30px) ;
-  height: calc(100% - 60px - 30px);
+  height: -webkit-calc(100% - 60px - 40px) ;
+  height: calc(100% - 60px - 40px);
 `;
 
 const footer = css`
   height: 5%;
-  height: -webkit-calc(30px) ;
-  height: calc(30px);
+  height: -webkit-calc(40px) ;
+  height: calc(40px);
 `;
 
 const MainField = () => {
