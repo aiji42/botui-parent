@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 const style = {
   overlay: {
@@ -28,14 +29,19 @@ const style = {
   }
 };
 
-const Modal = ({ isOpen, children, onAfterOpen }) => {
+const Modal = ({ isOpen, children }) => {
+  useEffect(() => {
+    !!isOpen && clearAllBodyScrollLocks()
+  }, [isOpen])
 
   return (
     <div>
       <ReactModal
         appElement={document.getElementById('root')}
         isOpen={isOpen}
-        onAfterOpen={onAfterOpen}
+        onAfterOpen={() => {
+          disableBodyScroll(document.body.querySelector('.ReactModal__Content'))
+        }}
         style={style}
       >
         {children}
@@ -46,8 +52,7 @@ const Modal = ({ isOpen, children, onAfterOpen }) => {
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  children: PropTypes.node,
-  onAfterOpen: PropTypes.func
+  children: PropTypes.node
 };
 
 export default Modal;

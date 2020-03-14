@@ -6,6 +6,7 @@
     "@bugsnag/js": "^6.5.2",
     "@bugsnag/plugin-react": "^6.5.0",
     "@emotion/core": "^10.0.28",
+    "body-scroll-lock": "^2.6.4",
     "libphonenumber-js": "^1.7.44",
     "loaders.css": "^0.1.2",
     "postmate": "^1.5.2",
