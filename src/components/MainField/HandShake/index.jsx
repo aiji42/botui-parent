@@ -7,7 +7,7 @@ const style = css`
   width: 100%;
 `;
 
-const HandShake = ({ onPrepared, updateFooter, css, ...props }) => {
+const HandShake = ({ onPrepared, updateFooter, css: cssStyle, ...props }) => {
   const el = useRef(null);
 
   useEffect(() => {
@@ -24,11 +24,12 @@ const HandShake = ({ onPrepared, updateFooter, css, ...props }) => {
   }, []);
 
   return (
-    <div css={[style, css]} ref={el} {...props}></div>
+    <div css={[style, cssStyle]} ref={el} {...props}></div>
   );
 };
 
 HandShake.propTypes = {
+  css: PropTypes.object,
   onPrepared: PropTypes.func.isRequired,
   updateFooter: PropTypes.func
 };

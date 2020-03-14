@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProgressBar from './PregressBar'
+import ProgressBar from './PregressBar';
 import { css } from '@emotion/core';
 
 const base = css`
@@ -12,11 +12,11 @@ const span = css`
   bottom: 20px;
   right: 0px;
   color: gray;
-`
+`;
 
-const Footer = ({ percent, remaining, css, ...props }) => {
+const Footer = ({ percent, remaining, css: cssStyle, ...props }) => {
   return (
-    <div css={[css, base]} {...props}>
+    <div css={[cssStyle, base]} {...props}>
       <span css={span}>{!!remaining && `のこり${remaining}問で完了！`}</span>
       <ProgressBar percent={percent} />
     </div>
@@ -25,7 +25,8 @@ const Footer = ({ percent, remaining, css, ...props }) => {
 
 Footer.propTypes = {
   percent: PropTypes.number,
-  remaining: PropTypes.number
+  remaining: PropTypes.number,
+  css: PropTypes.object
 };
 
 export default Footer;
