@@ -1,6 +1,7 @@
-const domainIsTrue = document.location.host === 'nelture.com';
-const pathIsTrue = document.location.pathname === '/shopping/';
-const referrerIsTrue = document.referrer.includes('/cart/');
-const isDevelopment = process.env.NODE_ENV === 'development';
+const conditions = JSON.parse(process.env.BOTUI_LAUNCH_CONDITION || '{}');
 
-export const launchCondition = isDevelopment || domainIsTrue && pathIsTrue && referrerIsTrue;
+export const launchCondition = Object.keys(conditions).every(key => {
+  if (key === 'host') return document.location.host.includes(conditions[key]);
+  if (key === 'pathname') return document.location.pathname.includes(conditions[key]);
+  if (key === 'referrer') return document.referrer.includes(conditions[key]);
+});

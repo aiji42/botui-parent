@@ -36,6 +36,7 @@ export default {
       SERVICE_CODE: process.env.SERVICE_CODE,
       BOTUI_CHILD_ENDPOINT: process.env.BOTUI_CHILD_ENDPOINT,
       BOTUI_ACTIVATE_RATE: process.env.BOTUI_ACTIVATE_RATE,
+      BOTUI_LAUNCH_CONDITION: process.env.BOTUI_LAUNCH_CONDITION || '{}',
       BUGSNAG_API_KEY: process.env.BUGSNAG_API_KEY,
       COMMIT_REF: process.env.COMMIT_REF || 'xxxxx'
     })
