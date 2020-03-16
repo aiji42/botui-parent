@@ -11,7 +11,7 @@ const span = css`
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.9em;
   line-height: 0.9em;
-  text-align: right;
+  text-align: center;
   color: gray;
 `;
 
@@ -19,7 +19,7 @@ const Footer = ({ percent, remaining, css: cssStyle, ...props }) => {
   return (
     <div css={[cssStyle, base]} {...props}>
       <ProgressBar percent={percent} />
-      <div css={span}>{!!remaining && `のこり${remaining}問で完了！`}</div>
+      <div css={span}>{!!remaining && `のこり${remaining}問で完了`}</div>
     </div>
   );
 };
