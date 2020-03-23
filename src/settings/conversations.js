@@ -19,29 +19,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'userInfo-gender',
-    trigger: 'hello',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'まずはあなたの性別を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormGender'
-        }
-      }
-    ]
-  },
-  {
     id: 'userInfo-name',
-    trigger: 'userInfo-gender',
+    trigger: 'hello',
     countable: true,
     actions: [
       {
@@ -124,29 +103,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'userInfo-birthday',
-    trigger: 'userInfo-tel',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: '生年月日を教えてください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormBirthDay'
-        }
-      }
-    ]
-  },
-  {
     id: 'userInfo-mailmagazine',
-    trigger: 'userInfo-birthday',
+    trigger: 'userInfo-tel',
     countable: true,
     actions: [
       {
@@ -166,48 +124,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'deliveryPayment-delivery',
-    trigger: 'userInfo-mailmagazine',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectableDeriveryDateTime',
-        whenReturn: {
-          false: 'skip',
-          true: 'continue'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryDateChoices'
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryTimeChoices'
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お届け日時の希望を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormDeliveryDateTime'
-        }
-      }
-    ]
-  },
-  {
     id: 'deliveryPayment-payment',
-    trigger: 'deliveryPayment-delivery',
+    trigger: 'userInfo-mailmagazine',
     countable: true,
     actions: [
       {
@@ -228,6 +146,103 @@ export const conversations = [
         options: {
           content: 'FormPayment'
         }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutPaymentMethod'
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-checkoutPaymentMethod',
+    trigger: 'deliveryPayment-payment',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutPaymentMethod'
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-creditCard',
+    trigger: 'deliveryPayment-checkoutPaymentMethod',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCredit',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クレジットカードの情報を入力して下さい。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCreditCard'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-checkoutCard',
+    trigger: 'deliveryPayment-creditCard',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutCard',
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-paymentTime',
+    trigger: 'deliveryPayment-checkoutCard',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentTimeChoices',
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お支払い回数を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormPaymentTime'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-checkoutPaymrntTime',
+    trigger: 'deliveryPayment-paymentTime',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutPaymentTime',
       }
     ]
   },

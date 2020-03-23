@@ -2,3 +2,5 @@ export * from './deliveryAndPayment';
 export * from './confirm';
 export * from './conversion';
 export * from './shouldGoPaymentPage';
+export * from './checkout';
+export * from './creditCard';

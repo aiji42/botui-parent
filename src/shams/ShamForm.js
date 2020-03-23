@@ -1,7 +1,7 @@
 export default class ShamForm {
   constructor(form) {
     this.form = form;
-    this.data = new FormData(form);
+    if (form) this.data = new FormData(form);
   }
 
   append(appends, safely = false) {
@@ -9,6 +9,10 @@ export default class ShamForm {
       if (!safely) this.data.set(key, appends[key]);
       else if (this.data.has(key)) this.data.set(key, appends[key]);
     });
+  }
+
+  delete(key) {
+    this.data.delete(key);
   }
 
   get requestBody() {
