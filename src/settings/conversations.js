@@ -182,15 +182,6 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'isCouponHaving',
-        whenReturn: {
-          true: 'continue',
-          false: 'skip'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
         function: 'checkoutAndValidateCoupon',
         whenReturn: {
           true: 'skip',

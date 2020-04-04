@@ -71,4 +71,20 @@ export const checkoutCoupon = async ({ coupon: couponCode }) => {
   });
   const json = JSON.parse(await res.text());
   return json;
-}
+};
+
+export const checkoutCouponDelete = async ({ couponId }) => {
+  const res = await fetch(`/api/checkout/coupons/${couponId}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-xsrf-token': document.head.querySelector('meta[name=_csrf]').content
+    },
+    credentials: 'include',
+    mode: 'cors',
+    body: JSON.stringify({})
+  });
+  const json = JSON.parse(await res.text());
+  return json;
+};

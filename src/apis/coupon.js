@@ -1,8 +1,11 @@
-import { checkoutCoupon } from './checkout'
+import checkout, { checkoutCoupon, checkoutCouponDelete } from './checkout';
 
-export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'yes'
+export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'yes';
 
 export const checkoutAndValidateCoupon = async (data) => {
-  const res = await checkoutCoupon(data)
-  return !res.hasErrors
-}
+  const { coupon } = await checkout();
+  await Promise.all(coupon.coupons.map(({ id }) => checkoutCouponDelete({ couponId: id })));
+  if (!(await isCouponHaving(data))) return true;
+  const res = await checkoutCoupon(data);
+  return !res.hasErrors;
+};
