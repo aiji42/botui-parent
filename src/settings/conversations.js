@@ -406,12 +406,12 @@ export const conversations = [
   },
   {
     id: 'confirm',
-    trigger: 'cashless',
+    trigger: 'membership-password',
     actions: [
       {
         human: false,
         type: 'function',
-        function: 'confirm'
+        function: 'confirmHTML'
       },
       {
         human: false,
@@ -424,7 +424,7 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormConfirm'
+          content: 'FormConfirmWithInnerHTML'
         }
       }
     ]

@@ -1,9 +1,14 @@
+import hash from 'object-hash';
 import { creditCardCreateToken } from './creditCard';
 
-const checkout = async () => {
+const checkoutCache = {};
+const checkout = async (data) => {
+  const hashed = hash(data);
+  if (checkoutCache[hashed]) return checkoutCache[hashed];
   const res = await fetch('/api/checkout');
   const json = JSON.parse(await res.text());
-  return json;
+  checkoutCache[hashed] = json;
+  return checkoutCache[hashed];
 };
 
 export default checkout;
