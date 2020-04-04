@@ -56,3 +56,19 @@ export const checkoutPaymentTime = async ({ payment: paymentMethod, paymentTime:
   const json = JSON.parse(await res.text());
   return json;
 };
+
+export const checkoutCoupon = async ({ coupon: couponCode }) => {
+  const res = await fetch('/api/checkout/coupon-code', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-xsrf-token': document.head.querySelector('meta[name=_csrf]').content
+    },
+    credentials: 'include',
+    mode: 'cors',
+    body: JSON.stringify({ couponCode })
+  });
+  const json = JSON.parse(await res.text());
+  return json;
+}

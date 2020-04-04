@@ -5,6 +5,8 @@ import {
   checkoutCard,
   checkoutPaymentTime,
   paymentTimeChoices,
+  isCouponHaving,
+  checkoutAndValidateCoupon
 } from '../apis';
 import { dataLayerBotui } from '../gtm';
 
@@ -16,6 +18,8 @@ const actions = {
   checkoutCard: async (data) => await checkoutCard(data),
   checkoutPaymentTime: async (data) => await checkoutPaymentTime(data),
   paymentTimeChoices: async (data) => await paymentTimeChoices(data),
+  isCouponHaving: async (data) => await isCouponHaving(data),
+  checkoutAndValidateCoupon: async (data) => await checkoutAndValidateCoupon(data)
 };
 
 export default actions;

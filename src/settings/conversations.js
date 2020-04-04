@@ -124,8 +124,102 @@ export const conversations = [
     ]
   },
   {
-    id: 'deliveryPayment-payment',
+    id: 'deliveryPayment-couponHaving',
     trigger: 'userInfo-mailmagazine',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クーポンコードをお持ちですか？'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCouponHaving'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-couponCode',
+    trigger: 'deliveryPayment-couponHaving',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isCouponHaving',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クーポンコードを入力して下さい。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCoupon'
+        }
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-checkoutCoupon',
+    trigger: 'deliveryPayment-couponCode',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isCouponHaving',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutAndValidateCoupon',
+        whenReturn: {
+          true: 'skip',
+          false: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クーポンコードが間違っているようです。確認して再入力して下さい。'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クーポンコードがわからない場合は、さかのぼって「持っていない」を選択してください。'
+        }
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-payment',
+    trigger: 'deliveryPayment-checkoutCoupon',
     countable: true,
     actions: [
       {
@@ -146,11 +240,6 @@ export const conversations = [
         options: {
           content: 'FormPayment'
         }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'checkoutPaymentMethod'
       }
     ]
   },
