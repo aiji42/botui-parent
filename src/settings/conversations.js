@@ -284,6 +284,15 @@ export const conversations = [
       {
         human: false,
         type: 'function',
+        function: 'isSelectedCredit',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
         function: 'checkoutCard',
       }
     ]
@@ -293,6 +302,15 @@ export const conversations = [
     trigger: 'deliveryPayment-checkoutCard',
     countable: true,
     actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCredit',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
       {
         human: false,
         type: 'function',
@@ -315,10 +333,19 @@ export const conversations = [
     ]
   },
   {
-    id: 'deliveryPayment-checkoutPaymrntTime',
+    id: 'deliveryPayment-checkoutPaymentTime',
     trigger: 'deliveryPayment-paymentTime',
     countable: false,
     actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCredit',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
       {
         human: false,
         type: 'function',
@@ -327,13 +354,35 @@ export const conversations = [
     ]
   },
   {
-    id: 'cashless',
-    trigger: 'deliveryPayment-payment',
+    id: 'membership-registerOpt',
+    trigger: 'deliveryPayment-checkoutPaymentTime',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '会員登録を希望されますか？',
+        },
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormMembership'
+        }
+      }
+    ]
+  },
+  {
+    id: 'membership-password',
+    trigger: 'membership-registerOpt',
+    countable: true,
     actions: [
       {
         human: false,
         type: 'function',
-        function: 'isCashLess',
+        function: 'isMembershipOptIn',
         whenReturn: {
           false: 'skip',
           true: 'continue'
@@ -341,9 +390,16 @@ export const conversations = [
       },
       {
         human: false,
+        type: 'message',
+        options: {
+          content: 'パスワードを入力して下さい。',
+        },
+      },
+      {
+        human: true,
         type: 'component',
         options: {
-          content: 'CashLess'
+          content: 'FormPassword'
         }
       }
     ]

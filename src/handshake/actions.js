@@ -19,7 +19,8 @@ const actions = {
   checkoutPaymentTime: async (data) => await checkoutPaymentTime(data),
   paymentTimeChoices: async (data) => await paymentTimeChoices(data),
   isCouponHaving: async (data) => await isCouponHaving(data),
-  checkoutAndValidateCoupon: async (data) => await checkoutAndValidateCoupon(data)
+  checkoutAndValidateCoupon: async (data) => await checkoutAndValidateCoupon(data),
+  isMembershipOptIn: async (data) => (data.membership === 'true')
 };
 
 export default actions;

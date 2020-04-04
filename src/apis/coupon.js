@@ -1,6 +1,6 @@
 import checkout, { checkoutCoupon, checkoutCouponDelete } from './checkout';
 
-export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'yes';
+export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'true';
 
 export const checkoutAndValidateCoupon = async (data) => {
   const { coupon } = await checkout();
