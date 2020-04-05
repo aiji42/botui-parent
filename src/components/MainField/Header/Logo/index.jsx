@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import logo from './logo.png';
+import logo from './logo.jpg';
 
 const style = css`
   box-sizing: content-box;

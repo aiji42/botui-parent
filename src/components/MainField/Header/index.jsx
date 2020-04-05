@@ -4,10 +4,11 @@ import Logo from './Logo';
 import { css } from '@emotion/core';
 
 const style = css`
-    background-color: #20224a;
-    width: 100%;
-    text-align: center;
-  `;
+  background-color: #ffffff;
+  width: 100%;
+  text-align: center;
+  border-bottom: solid 1px gray;
+`;
 
 const Header = ({ css: cssStyle, ...props }) => (
   <div css={[style, cssStyle]} {...props}>
