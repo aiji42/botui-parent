@@ -7,8 +7,8 @@ const checkout = async (data) => {
   if (checkoutCache[hashed]) return checkoutCache[hashed];
   const res = await fetch('/api/checkout');
   const json = JSON.parse(await res.text());
-  checkoutCache[hashed] = json;
-  return checkoutCache[hashed];
+  if (!json.hasErrors) checkoutCache[hashed] = json;
+  return json;
 };
 
 export default checkout;
@@ -81,6 +81,22 @@ export const checkoutCoupon = async ({ coupon: couponCode }) => {
 export const checkoutCouponDelete = async ({ couponId }) => {
   const res = await fetch(`/api/checkout/coupons/${couponId}`, {
     method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-xsrf-token': document.head.querySelector('meta[name=_csrf]').content
+    },
+    credentials: 'include',
+    mode: 'cors',
+    body: JSON.stringify({})
+  });
+  const json = JSON.parse(await res.text());
+  return json;
+};
+
+export const checkoutOrder = async () => {
+  const res = await fetch('/api/checkout/order', {
+    method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

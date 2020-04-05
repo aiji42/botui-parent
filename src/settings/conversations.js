@@ -430,7 +430,7 @@ export const conversations = [
     ]
   },
   {
-    id: 'cv-repare',
+    id: 'conversion',
     trigger: 'confirm',
     actions: [
       {
@@ -443,53 +443,23 @@ export const conversations = [
       {
         human: false,
         type: 'function',
-        function: 'conversionPrepare',
+        function: 'conversion',
         whenReturn: {
-          true: 'continue'
+          true: 'continue',
+          false: ''
         }
       },
-      {
-        human: false,
-        type: 'function',
-        function: 'shouldGoPaymentPage',
-        whenReturn: {
-          true: { id: 'conversion-not-cash' },
-          false: { id: 'conversion-cash' }
-        }
-      },
-    ]
-  },
-  {
-    id: 'conversion-not-cash',
-    actions: [
       {
         human: false,
         type: 'message',
         options: {
-          content: '自動的にお支払いページへ移動します。'
+          content: 'お手続きが完了しました。サンクスページに移動します。'
         }
       },
       {
         human: false,
         type: 'function',
-        function: 'conversion'
-      },
-    ]
-  },
-  {
-    id: 'conversion-cash',
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'ご注文完了です。自動的にページを移動します。'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'conversion'
+        function: 'goToThanks'
       },
     ]
   },

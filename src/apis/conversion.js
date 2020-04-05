@@ -1,16 +1,12 @@
-// import { confirmStep } from '../steps';
+import { checkoutOrder } from './checkout';
 
-// const finalFormEl = [];
+export const conversion = async () => {
+  const { redirectUrl, hasErrors } = await checkoutOrder();
+  if (!hasErrors && !redirectUrl) return true;
 
-// export const conversionPrepare = async (data) => {
-//   const step = await confirmStep(data);
-//   step.form.form.style = 'display:none';
-//   finalFormEl[0] = document.body.appendChild(step.form.form);
-//   return true;
-// };
-
-// export const conversion = async () => {
-//   if (!finalFormEl[0]) return false;
-//   finalFormEl[0].submit();
-//   return true;
-// };
+  return false;
+  // const iframe = document.createElement('iframe')
+  // iframe.src = redirectUrl
+  // document.body.appendChild(iframe)
+  // iframe.contentWindow.document.body.querySelector('main #fs-page-error-container').innerText
+};

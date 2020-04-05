@@ -7,7 +7,8 @@ import {
   paymentTimeChoices,
   isCouponHaving,
   checkoutAndValidateCoupon,
-  confirmHTML
+  confirmHTML,
+  conversion
 } from '../apis';
 import { dataLayerBotui } from '../gtm';
 
@@ -22,7 +23,9 @@ const actions = {
   isCouponHaving: async (data) => await isCouponHaving(data),
   checkoutAndValidateCoupon: async (data) => await checkoutAndValidateCoupon(data),
   isMembershipOptIn: async (data) => (data.membership === 'true'),
-  confirmHTML: async (data) => await confirmHTML(data)
+  confirmHTML: async (data) => await confirmHTML(data),
+  conversion: async () => await conversion(),
+  goToThanks: async () => setTimeout(() => { document.location.href = '/p/checkout/success'; }, '3000')
 };
 
 export default actions;
