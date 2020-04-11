@@ -1,12 +1,9 @@
-import { checkoutOrder } from './checkout';
+import checkout, { checkoutOrder } from './checkout';
 
-export const conversion = async () => {
+export const conversion = async (data) => {
+  await checkout(data);
   const { redirectUrl, hasErrors } = await checkoutOrder();
   if (!hasErrors && !redirectUrl) return true;
 
-  return false;
-  // const iframe = document.createElement('iframe')
-  // iframe.src = redirectUrl
-  // document.body.appendChild(iframe)
-  // iframe.contentWindow.document.body.querySelector('main #fs-page-error-container').innerText
+  return redirectUrl;
 };

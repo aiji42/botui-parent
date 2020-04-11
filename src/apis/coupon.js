@@ -1,4 +1,4 @@
-import { deliveryAndPaymentStep } from '../steps';
+import { checkoutUserInfo } from './userInfo';
 import checkout, { checkoutCoupon, checkoutCouponDelete } from './checkout';
 
 export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'true';
@@ -6,7 +6,7 @@ export const isCouponHaving = async ({ couponHaving }) => couponHaving === 'true
 export const checkoutAndValidateCoupon = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {
-    await deliveryAndPaymentStep(data);
+    await checkoutUserInfo(data);
     checkouted = await checkout(data);
   }
 

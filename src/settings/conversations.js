@@ -124,8 +124,34 @@ export const conversations = [
     ]
   },
   {
-    id: 'deliveryPayment-couponHaving',
+    id: 'userInfo-checout',
     trigger: 'userInfo-mailmagazine',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'checkoutUserInfo',
+        whenReturn: {
+          true: 'skip',
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          dataStoreAnnounce: 'checkoutUserInfo'
+        }
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'deliveryPayment-couponHaving',
+    trigger: 'userInfo-checout',
     countable: true,
     actions: [
       {
@@ -430,8 +456,43 @@ export const conversations = [
     ]
   },
   {
-    id: 'conversion',
+    id: 'membership-register',
     trigger: 'confirm',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isMembershipOptIn',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'membershipRegister',
+        whenReturn: {
+          true: 'skip',
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          dataStoreAnnounce: 'membershipRegister'
+        }
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'conversion',
+    trigger: 'membership-register',
     actions: [
       {
         human: false,
@@ -445,10 +506,31 @@ export const conversations = [
         type: 'function',
         function: 'conversion',
         whenReturn: {
-          true: 'continue',
-          false: ''
+          true: 'skip',
         }
       },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お手続きのため、自動的にページを遷移させていただきます。'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'redirectToConversion'
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'goToThanksPage',
+    trigger: 'conversion',
+    actions: [
       {
         human: false,
         type: 'message',
@@ -462,5 +544,5 @@ export const conversations = [
         function: 'goToThanks'
       },
     ]
-  },
+  }
 ];

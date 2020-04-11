@@ -1,11 +1,11 @@
-import { deliveryAndPaymentStep } from '../steps';
+import { checkoutUserInfo } from './userInfo';
 import checkout from './checkout';
 
 
 export const paymentMethods = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {
-    await deliveryAndPaymentStep(data);
+    await checkoutUserInfo(data);
     checkouted = await checkout(data);
   }
 
@@ -16,7 +16,7 @@ export const paymentMethods = async (data) => {
 export const isSelectedCredit = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {
-    await deliveryAndPaymentStep(data);
+    await checkoutUserInfo(data);
     checkouted = await checkout(data);
   }
 
@@ -27,7 +27,7 @@ export const isSelectedCredit = async (data) => {
 export const paymentTimeChoices = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {
-    await deliveryAndPaymentStep(data);
+    await checkoutUserInfo(data);
     checkouted = await checkout(data);
   }
 

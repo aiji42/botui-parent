@@ -1,4 +1,5 @@
 import {
+  checkoutUserInfo,
   paymentMethods,
   checkoutPaymentMethod,
   isSelectedCredit,
@@ -8,12 +9,14 @@ import {
   isCouponHaving,
   checkoutAndValidateCoupon,
   confirmHTML,
+  membershipRegister,
   conversion
 } from '../apis';
 import { dataLayerBotui } from '../gtm';
 
 const actions = {
   dataLayerPush: async (data) => dataLayerBotui.push(data),
+  checkoutUserInfo: async (data) => await checkoutUserInfo(data),
   paymentMethods: async (data) => await paymentMethods(data),
   checkoutPaymentMethod: async (data) => await checkoutPaymentMethod(data),
   isSelectedCredit: async (data) => await isSelectedCredit(data),
@@ -24,7 +27,9 @@ const actions = {
   checkoutAndValidateCoupon: async (data) => await checkoutAndValidateCoupon(data),
   isMembershipOptIn: async (data) => (data.membership === 'true'),
   confirmHTML: async (data) => await confirmHTML(data),
-  conversion: async () => await conversion(),
+  membershipRegister: async (data) => await membershipRegister(data),
+  conversion: async (data) => await conversion(data),
+  redirectToConversion: async (data) => setTimeout(() => { document.location.href = data.conversion; }, '3000'),
   goToThanks: async () => setTimeout(() => { document.location.href = '/p/checkout/success'; }, '3000')
 };
 

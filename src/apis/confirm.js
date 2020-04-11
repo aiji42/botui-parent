@@ -1,10 +1,10 @@
-import { deliveryAndPaymentStep } from '../steps';
+import { checkoutUserInfo } from './userInfo';
 import checkout from './checkout';
 
 export const confirmHTML = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {
-    await deliveryAndPaymentStep(data);
+    await checkoutUserInfo(data);
     checkouted = await checkout(data);
   }
 
