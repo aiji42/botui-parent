@@ -111,7 +111,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'neltureのお得情報などが届くメールマガジンに登録しますか？'
+          content: 'お得情報などが届くメールマガジンに登録しますか？'
         }
       },
       {
@@ -388,7 +388,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: '会員登録を希望されますか？',
+          content: '会員登録を希望されますか？会員登録していただくと、次回以降ポイント・クーポンがご利用いただけます。',
         },
       },
       {
@@ -418,7 +418,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'パスワードを入力して下さい。',
+          content: 'ご希望のパスワードを入力して下さい。',
         },
       },
       {
