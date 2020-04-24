@@ -225,7 +225,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'クーポンコードがわからない場合は、さかのぼって「持っていない」を選択してください。'
+          content: 'クーポンコードをお持ちでない場合は、さかのぼって「持っていない」を選択してください。'
         }
       },
       {
@@ -482,6 +482,20 @@ export const conversations = [
         type: 'message',
         options: {
           dataStoreAnnounce: 'membershipRegister'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'さかのぼって入力内容を変更するか、会員のお客様はログインページからご購入ください。'
+        }
+      },
+      {
+        human: true,
+        type: 'message',
+        options: {
+          content: '[ログインページはこちら](https://www.amepla.jp/p/login)^!(external-link)'
         }
       },
       {
