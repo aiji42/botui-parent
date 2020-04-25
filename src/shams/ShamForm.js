@@ -11,6 +11,10 @@ export default class ShamForm {
     });
   }
 
+  delete(key) {
+    this.data.delete(key);
+  }
+
   get requestBody() {
     const obj = Array.from(this.data)
       .reduce((result, [key, val]) => ({ ...result, [key]: val }), {});
