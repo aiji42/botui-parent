@@ -31,7 +31,8 @@ export default merge(common, {
       apiKey: process.env.BUGSNAG_API_KEY,
       appVersion: process.env.COMMIT_REF,
       uploadSource: true,
-      publicPath: '*/'
+      publicPath: '*/',
+      overwrite: true
     })
   ]
 })
