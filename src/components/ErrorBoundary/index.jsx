@@ -1,8 +1,14 @@
 import React from 'react';
-import bugsnagClient from '../../bugsnagClient';
-import bugsnagReact from '@bugsnag/plugin-react';
+import Bugsnag from '@bugsnag/js';
+import BugsnagPluginReact from '@bugsnag/plugin-react';
 
-bugsnagClient.use(bugsnagReact, React);
-const ErrorBoundary = bugsnagClient.getPlugin('react');
+Bugsnag.start({
+  apiKey: process.env.BUGSNAG_API_KEY,
+  releaseStage: process.env.NODE_ENV,
+  appVersion: process.env.COMMIT_REF,
+  plugins: [new BugsnagPluginReact(React)],
+});
+Bugsnag.addMetadata('service', { code: process.env.SERVICE_CODE });
+const ErrorBoundary = Bugsnag.getPlugin('react');
 
 export default ErrorBoundary;

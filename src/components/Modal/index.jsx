@@ -29,29 +29,27 @@ const style = {
   }
 };
 
-const Modal = ({ isOpen, children }) => {
+const onAfterOpen = () => disableBodyScroll(document.body.querySelector('.ReactModal__Content'));
+
+const Modal = ({ isOpen, appElement, children }) => {
   useEffect(() => {
     !!isOpen && clearAllBodyScrollLocks();
   }, [isOpen]);
 
   return (
-    <div>
-      <ReactModal
-        appElement={document.getElementById('root')}
-        isOpen={isOpen}
-        onAfterOpen={() => {
-          disableBodyScroll(document.body.querySelector('.ReactModal__Content'));
-        }}
-        style={style}
-      >
-        {children}
-      </ReactModal>
-    </div>
+    <ReactModal appElement={appElement} isOpen={isOpen} onAfterOpen={onAfterOpen} style={style}>
+      {children}
+    </ReactModal>
   );
+};
+
+Modal.defaultProps = {
+  isOpen: true
 };
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  appElement: PropTypes.object,
   children: PropTypes.node
 };
 

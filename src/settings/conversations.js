@@ -495,7 +495,7 @@ export const conversations = [
         human: true,
         type: 'message',
         options: {
-          content: '[ログインページはこちら](https://www.amepla.jp/p/login)^!(external-link)'
+          content: '<a href="https://www.amepla.jp/p/login" target="_top">ログインページはこちら</a>'
         }
       },
       {

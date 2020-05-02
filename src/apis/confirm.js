@@ -44,7 +44,7 @@ const makeHTML = ({ data, items, total, address, paymentMethod, coupons }) => `
   ${items.map(item => `
     <div style="margin-bottom:5px">
       <img src="${item.image}" style="width:35%;display:inline-block;vertical-align:top;" >
-      <div style="width:63%;display:inline-block;vertical-align:top;">
+      <div style="width:61%;display:inline-block;vertical-align:top;">
         <p style="margin:0px">${item.name}</p>
         ${item.description.length > 0 ? `<p  style="margin:0px">${item.description}</p>` : ''}
         <p style="margin:0px">${item.price}円(税込)</p>
