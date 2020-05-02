@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@bugsnag/js": "^6.5.2",
-    "@bugsnag/plugin-react": "^6.5.0",
+    "@bugsnag/js": "^7.0.1",
+    "@bugsnag/plugin-react": "^7.0.1",
     "@emotion/core": "^10.0.28",
     "body-scroll-lock": "^3.0.1",
     "libphonenumber-js": "^1.7.50",
@@ -12,6 +12,7 @@
     "rc-progress": "^2.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-gtm-module": "^2.0.8",
     "react-modal": "^3.11.2",
     "react-spinners": "^0.8.1",
     "store": "^2.0.12"
