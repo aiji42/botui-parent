@@ -248,7 +248,8 @@ export const conversations = [
         human: false,
         type: 'component',
         options: {
-          content: 'CashLess'
+          content: 'CashLess',
+          icon: false
         }
       }
     ]
