@@ -12,10 +12,10 @@ import {
   membershipRegister,
   conversion
 } from '../apis';
-import { dataLayerBotui } from '../gtm';
+import TagManager from 'react-gtm-module';
 
 const actions = {
-  dataLayerPush: async (data) => dataLayerBotui.push(data),
+  dataLayerPush: async (data) => TagManager.dataLayer({ dataLayer: data, dataLayerName: 'dataLayerBotuiParent' }),
   checkoutUserInfo: async (data) => await checkoutUserInfo(data),
   paymentMethods: async (data) => await paymentMethods(data),
   checkoutPaymentMethod: async (data) => await checkoutPaymentMethod(data),

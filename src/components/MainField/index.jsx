@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import ErrorBoundary from '../ErrorBoundary';
-import HandShake from './HandShake';
-import Loading from '../Loading';
-import Modal from '../Modal';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import Body from './Body';
 import Header from './Header';
 import Footer from './Footer';
+import Loading from './Loading';
 import { css } from '@emotion/core';
 
 const header = css`
@@ -25,28 +24,22 @@ const footer = css`
   height: calc(40px);
 `;
 
-const MainField = () => {
-  const [prepared, setPreapred] = useState(false);
-  const [percent, setPercent] = useState(0);
-  const [remaining, setRemaining] = useState(null);
-
-  const updateFooter = ([percentage, remainingNumber]) => {
-    setPercent(percentage);
-    setRemaining(remainingNumber);
-  };
-
+const MainField = ({ handshakeChild, handshakeElement }) => {
+  const [loading, setLoading] = useState(true);
+  const onReady =  useCallback(() => { setLoading(false); }, []);
   return (
-    <ErrorBoundary>
-      <Loading isProgressing={!prepared} />
-      <Modal isOpen={true}>
-        <Header css={header} />
-        <HandShake onPrepared={() => { setPreapred(true); }}
-          updateFooter={updateFooter} css={handshake}
-        />
-        <Footer percent={percent} remaining={remaining} css={footer} />
-      </Modal>
-    </ErrorBoundary>
+    <>
+      {loading && <Loading />}
+      <Header css={header} />
+      <Body handshakeChild={handshakeChild} handshakeElement={handshakeElement} onReady={onReady} css={handshake} />
+      <Footer handshakeChild={handshakeChild} css={footer} />
+    </>
   );
+};
+
+MainField.propTypes = {
+  handshakeChild: PropTypes.object,
+  handshakeElement: PropTypes.object
 };
 
 export default MainField;
