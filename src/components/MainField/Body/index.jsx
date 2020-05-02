@@ -6,13 +6,22 @@ const style = css`
   width: 100%;
 `;
 
-const Body = ({ handshakeChild, handshakeElement, onReady, css: cssStyle, ...props }) => {
-  useEffect(() => {
-    handshakeChild && handshakeChild.on('readyToStartChat', () => {
+const chatStart = async (handshakeChild, onReady) => {
+  if (!handshakeChild) return;
+  const isReady = await handshakeChild.get('isReady');
+  if (isReady) {
+    handshakeChild.call('startChat');
+    onReady();
+  } else {
+    handshakeChild.on('readyToStartChat', () => {
       handshakeChild.call('startChat');
       onReady();
     });
-  }, [handshakeChild]);
+  }
+};
+
+const Body = ({ handshakeChild, handshakeElement, onReady, css: cssStyle, ...props }) => {
+  useEffect(() => { chatStart(handshakeChild, onReady); }, [handshakeChild]);
 
   return (
     <div css={[style, cssStyle]} ref={handshakeElement} {...props}></div>
