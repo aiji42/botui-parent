@@ -3,7 +3,6 @@ import { EnvironmentPlugin } from 'webpack'
 
 export default {
   entry: [
-    '@babel/polyfill',
     path.resolve(__dirname, 'src', 'index.jsx')
   ],
   output: {
@@ -19,10 +18,6 @@ export default {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
