@@ -1,30 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { saveStoreValue, findStoredValue } from './dataStore';
-import { dataLayerBotui } from './gtm';
+import ErrorBoundary from './components/ErrorBoundary';
+import ShouldStartChat from './components/ShouldStartChst';
+import Handshake from './components/Handshake';
+import Modal from './components/Modal';
 import MainField from './components/MainField';
 import { launchCondition } from './settings';
-import './style.scss';
-
-const shouldStartChat = () => {
-  return saveStoreValue('activeate',
-    findStoredValue('activeate',
-      Math.random() <= process.env.BOTUI_ACTIVATE_RATE
-    )
-  );
-};
 
 if (launchCondition) {
-  dataLayerBotui.push({
-    event: 'analytics', eventCategory: 'botui-parent', eventAction: 'activate',
-    eventLabel: shouldStartChat() ? 'true' : 'false',
-  });
+  const rootElment = document.createElement('div');
+  document.body.insertBefore(rootElment, document.body.firstChild);
 
-  if (shouldStartChat()) {
-    const rootElment = document.createElement('div');
-    rootElment.id = 'root';
-    document.body.insertBefore(rootElment, document.body.firstChild);
-
-    ReactDOM.render(<MainField />, document.querySelector('#root'));
-  }
+  ReactDOM.render(
+    <ErrorBoundary>
+      <ShouldStartChat>
+        <Modal appElement={rootElment} >
+          <Handshake>
+            {(handshake) => <MainField {...handshake} />}
+          </Handshake>
+        </Modal>
+      </ShouldStartChat>
+    </ErrorBoundary>,
+    rootElment
+  );
 }

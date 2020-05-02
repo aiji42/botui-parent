@@ -8,10 +8,10 @@ import {
   conversion,
   shouldGoPaymentPage
 } from '../apis';
-import { dataLayerBotui } from '../gtm';
+import TagManager from 'react-gtm-module';
 
 const actions = {
-  dataLayerPush: async (data) => dataLayerBotui.push(data),
+  dataLayerPush: async (data) => TagManager.dataLayer({dataLayer: data, dataLayerName: 'dataLayerBotuiParent'}),
   isSelectableDeriveryDateTime: async (data) => await isSelectableDeriveryDateTime(data),
   paymentMethods: async (data) => await paymentMethods(data),
   deliveryDateChoices: async (data) => await deliveryDateChoices(data),

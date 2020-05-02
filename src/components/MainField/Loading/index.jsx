@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import HashLoader from 'react-spinners/HashLoader';
 
@@ -19,22 +18,14 @@ const style = css`
   transform: translate(-50%, -50%)
 `;
 
-const Loading = ({ isProgressing }) => {
+const Loading = () => {
   return (
-    <div css={isProgressing ? base : ''}>
+    <div css={base}>
       <div css={style}>
-        <HashLoader
-          loading={isProgressing}
-          size={50}
-          color="#0f84fe"
-        />
+        <HashLoader loading size={50} color="#0f84fe"/>
       </div>
     </div>
   );
-};
-
-Loading.propTypes = {
-  isProgressing: PropTypes.bool.isRequired
 };
 
 export default Loading;
