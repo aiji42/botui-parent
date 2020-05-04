@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ProgressBar from './PregressBar';
+import ProgressBar from './ProgressBar';
 import { css } from '@emotion/core';
+import { conversationIds } from '../../../util/conversations';
 
 const base = css`
   padding: 0 10px
@@ -15,19 +16,19 @@ const span = css`
   color: gray;
 `;
 
+const remainingNumber = ({ id }) => conversationIds().reverse().indexOf(id);
+
 const Footer = ({ handshakeChild, css: cssStyle, ...props }) => {
-  const [percent, setPercent] = useState(0);
   const [remaining, setRemaining] = useState(null);
   useEffect(() => {
-    handshakeChild && handshakeChild.on('updateFooter', ([percentage, remainingNumber]) => {
-      setPercent(percentage);
-      setRemaining(remainingNumber);
+    handshakeChild && handshakeChild.on('updateStatus', (data) => {
+      setRemaining(remainingNumber(data));
     });
   }, [handshakeChild]);
 
   return (
     <div css={[cssStyle, base]} {...props}>
-      <ProgressBar percent={percent} />
+      <ProgressBar handshakeChild={handshakeChild} />
       <div css={span}>{!!remaining && `のこり${remaining}問で完了`}</div>
     </div>
   );
