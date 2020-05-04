@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProgressBar from './ProgressBar';
 import { css } from '@emotion/core';
-import { conversationIds } from '../../../util/conversations';
+import { countableIds } from '../../../util/conversations';
 
 const base = css`
   padding: 0 10px
@@ -16,7 +16,7 @@ const span = css`
   color: gray;
 `;
 
-const remainingNumber = ({ id }) => conversationIds().reverse().indexOf(id);
+const remainingNumber = ({ id }) => countableIds().reverse().indexOf(id) + 1;
 
 const Footer = ({ handshakeChild, css: cssStyle, ...props }) => {
   const [remaining, setRemaining] = useState(null);
