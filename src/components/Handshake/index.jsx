@@ -3,6 +3,19 @@ import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import actions from '../../handshake/actions';
 import * as setting from '../../settings';
+import TagManager from 'react-gtm-module';
+import { conversationIds } from '../../util/conversations';
+
+const dataLayerPush = ({ id, action }) => {
+  const index = conversationIds().indexOf(id) < 0 ? 99 : conversationIds().indexOf(id);
+  const dataLayer = {
+    event: 'analytics',
+    eventCategory: 'botui-child',
+    eventAction: action,
+    eventLabel: `${('00' + index).slice(-2)}_${id}`,
+  };
+  TagManager.dataLayer({ dataLayer, dataLayerName: 'dataLayerBotuiParent' });
+};
 
 const makeHandshakeChild = async (el) => {
   const handshake = new Postmate({
@@ -19,6 +32,7 @@ const makeHandshakeChild = async (el) => {
   Object.keys(actions).forEach(key => {
     child.on(key, async (data) => child.call('publishMessage', [key, await actions[key](data)]));
   });
+  child.on('updateStatus', dataLayerPush);
 
   return child;
 };
