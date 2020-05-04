@@ -19,5 +19,5 @@ export const countableIds = () => {
     if (next.countable) ids.push(next.id);
     next = findNext(next);
   }
-  return;
+  return ids;
 };
