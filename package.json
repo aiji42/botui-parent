@@ -9,7 +9,7 @@
     "object-hash": "^2.0.3",
     "body-scroll-lock": "^3.0.2",
     "libphonenumber-js": "^1.7.51",
-    "postmate": "^1.5.2",
+    "postmate": "dollarshaveclub/postmate#master",
     "rc-progress": "^2.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
