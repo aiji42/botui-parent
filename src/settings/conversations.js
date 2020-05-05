@@ -463,7 +463,21 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormPassword'
+          content: 'FormCustomInput',
+          props: {
+            inputs: [{
+              name: 'password',
+              type: 'password',
+              title: 'パスワード',
+              validation: {
+                type: 'string',
+                required: ['入力してください'],
+                matches: [/^[a-z\d!#$%&'()*+,./:;<=>?@\-[\]^_`{|}~]+$/i, '使用できない文字が含まれています(半角英数字と記号で入力してください)'],
+                min: [6, '6文字以上で入力してください'],
+                max: [30, '30文字以内で入力してください']
+              }
+            }]
+          }
         }
       }
     ]
