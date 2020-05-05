@@ -34,7 +34,13 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormGender'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'gender',
+            choices: {
+              '1': '男性', '2': '女性'
+            }
+          }
         }
       }
     ]
@@ -160,7 +166,11 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormMailMagazine'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'mailmagazine',
+            choices: { 'true': '登録する', 'false': '登録しない' }
+          }
         }
       }
     ]
@@ -200,7 +210,23 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormDeliveryDateTime'
+          content: 'FormCustomSelect',
+          props: {
+            selects: [
+              {
+                name: 'deliveryDate',
+                title: 'お届け希望日',
+                stored: true,
+                storedName: 'deliveryDateChoices'
+              },
+              {
+                name: 'deliveryTime',
+                title: 'お届け希望時間帯',
+                stored: true,
+                storedName: 'deliveryTimeChoices'
+              }
+            ]
+          }
         }
       }
     ]
@@ -226,7 +252,12 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormPayment'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'payment',
+            stored: true,
+            storedName: 'paymentMethods'
+          }
         }
       }
     ]

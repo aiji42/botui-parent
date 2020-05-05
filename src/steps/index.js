@@ -22,7 +22,7 @@ const makeUserInfo = (data) => {
     'order_day': data.birthdayDay,
     'order_email': data.email,
     'order_email02': data.email,
-    'order_sex': data.gender === 'male' ? '1' : '2',
+    'order_sex': data.gender,
     'order_mailmaga_flg': data.mailmagazine === 'true' ? '2' : '',
   };
 };
