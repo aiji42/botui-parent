@@ -118,7 +118,11 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormMailMagazine'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'mailmagazine',
+            choices: { 'true': '登録する', 'false': '登録しない' }
+          }
         }
       }
     ]
@@ -165,7 +169,11 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormCouponHaving'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'couponHaving',
+            choices: { 'true': '持っている', 'false': '持っていない' }
+          }
         }
       }
     ]
@@ -195,7 +203,20 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormCoupon'
+          content: 'FormCustomInput',
+          props: {
+            inputs: [{
+              name: 'coupon',
+              type: 'text',
+              title: 'クーポン',
+              placeholder: 'クーポン番号',
+              validation: {
+                type: 'string',
+                required: ['入力してください'],
+                max: [200, '入力内容が長すぎます']
+              }
+            }]
+          }
         }
       }
     ]
@@ -255,7 +276,12 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormPayment'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'payment',
+            stored: true,
+            storedName: 'paymentMethods'
+          }
         }
       }
     ]
@@ -353,7 +379,15 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormPaymentTime'
+          content: 'FormCustomSelect',
+          props: {
+            selects: [{
+              name: 'paymentTime',
+              title: '支払回数',
+              stored: true,
+              storedName: 'paymentTimeChoices'
+            }]
+          }
         }
       }
     ]
@@ -395,7 +429,11 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormMembership'
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'membership',
+            choices: { 'true': '登録する', 'false': '登録しない' }
+          }
         }
       }
     ]
