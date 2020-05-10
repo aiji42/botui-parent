@@ -15,6 +15,13 @@ export const conversations = [
         options: {
           content: 'ご購入完了まで、私がお手伝いさせていただきます。'
         }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '入力はたった90秒で完了です！'
+        }
       }
     ]
   },
