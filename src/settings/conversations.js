@@ -327,6 +327,13 @@ export const conversations = [
         }
       },
       {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'カード情報の入力や送信は暗号化(SSL)処理されますので、安全にご利用いただけます。'
+        }
+      },
+      {
         human: true,
         type: 'component',
         options: {
