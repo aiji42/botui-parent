@@ -337,7 +337,10 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormCreditCard'
+          content: 'FormCreditCard',
+          props: {
+            brands: ['visa', 'jcb', 'mastercard', 'amex', 'diners']
+          }
         }
       }
     ]
