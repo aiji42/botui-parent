@@ -1,4 +1,2 @@
-export * from './deliveryAndPayment';
+export * from './payment';
 export * from './confirm';
-export * from './conversion';
-export * from './shouldGoPaymentPage';

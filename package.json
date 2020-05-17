@@ -7,6 +7,7 @@
     "@bugsnag/plugin-react": "^7.0.1",
     "@emotion/core": "^10.0.28",
     "body-scroll-lock": "^3.0.2",
+    "encoding-japanese": "^1.0.30",
     "libphonenumber-js": "^1.7.51",
     "postmate": "dollarshaveclub/postmate#master",
     "rc-progress": "^2.5.2",

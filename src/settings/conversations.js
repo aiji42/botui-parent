@@ -26,35 +26,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'userInfo-gender',
-    trigger: 'hello',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'まずはあなたの性別を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomRadioGroup',
-          props: {
-            name: 'gender',
-            choices: {
-              '1': '男性', '2': '女性'
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
     id: 'userInfo-name',
-    trigger: 'userInfo-gender',
+    trigger: 'hello',
     countable: true,
     actions: [
       {
@@ -137,7 +110,7 @@ export const conversations = [
     ]
   },
   {
-    id: 'userInfo-birthday',
+    id: 'userInfo-mailmagazine',
     trigger: 'userInfo-tel',
     countable: true,
     actions: [
@@ -145,28 +118,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: '生年月日を教えてください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormBirthDay'
-        }
-      }
-    ]
-  },
-  {
-    id: 'userInfo-mailmagazine',
-    trigger: 'userInfo-birthday',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'neltureのお得情報などが届くメールマガジンに登録しますか？'
+          content: 'プライムダイレクトのお得情報などが届くメールマガジンに登録しますか？'
         }
       },
       {
@@ -175,72 +127,16 @@ export const conversations = [
         options: {
           content: 'FormCustomRadioGroup',
           props: {
-            name: 'mailmagazine',
-            choices: { 'true': '登録する', 'false': '登録しない' }
+            name: 'newsletter',
+            choices: { '01': '登録する', '02': '登録しない' }
           }
         }
       }
     ]
   },
   {
-    id: 'deliveryPayment-delivery',
+    id: 'payment-method',
     trigger: 'userInfo-mailmagazine',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectableDeriveryDateTime',
-        whenReturn: {
-          false: 'skip',
-          true: 'continue'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryDateChoices'
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryTimeChoices'
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お届け日時の希望を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomSelect',
-          props: {
-            selects: [
-              {
-                name: 'deliveryDate',
-                title: 'お届け希望日',
-                stored: true,
-                storedName: 'deliveryDateChoices'
-              },
-              {
-                name: 'deliveryTime',
-                title: 'お届け希望時間帯',
-                stored: true,
-                storedName: 'deliveryTimeChoices'
-              }
-            ]
-          }
-        }
-      }
-    ]
-  },
-  {
-    id: 'deliveryPayment-payment',
-    trigger: 'deliveryPayment-delivery',
     countable: true,
     actions: [
       {
@@ -261,7 +157,7 @@ export const conversations = [
         options: {
           content: 'FormCustomRadioGroup',
           props: {
-            name: 'payment',
+            name: 'settleTypeSelect',
             stored: true,
             storedName: 'paymentMethods'
           }
@@ -270,36 +166,117 @@ export const conversations = [
     ]
   },
   {
-    id: 'cashless',
-    trigger: 'deliveryPayment-payment',
+    id: 'payment-creditcard',
+    trigger: 'payment-method',
+    countable: true,
     actions: [
       {
         human: false,
         type: 'function',
-        function: 'isCashLess',
+        function: 'isSelectedCreditCard',
         whenReturn: {
-          false: 'skip',
-          true: 'continue'
+          true: 'continue',
+          false: 'skip'
         }
       },
       {
         human: false,
+        type: 'message',
+        options: {
+          content: 'クレジットカードの情報を入力して下さい。'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'カード情報の入力や送信は暗号化(SSL)処理されますので、安全にご利用いただけます。'
+        }
+      },
+      {
+        human: true,
         type: 'component',
         options: {
-          content: 'CashLess',
-          icon: false
+          content: 'FormCreditCard',
+          props: {
+            brands: ['visa', 'jcb', 'mastercard', 'amex', 'diners']
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'payment-creditcardCreateToken',
+    trigger: 'payment-creditcard',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCreditCard',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'creditToken'
+      }
+    ]
+  },
+  {
+    id: 'payment-paymentTime',
+    trigger: 'payment-creditcardCreateToken',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCreditCard',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentTimeChoices',
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お支払い回数を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomSelect',
+          props: {
+            selects: [{
+              name: 'paymentTime',
+              title: '支払回数',
+              stored: true,
+              storedName: 'paymentTimeChoices'
+            }]
+          }
         }
       }
     ]
   },
   {
     id: 'confirm',
-    trigger: 'cashless',
+    trigger: 'payment-paymentTime',
     actions: [
       {
         human: false,
         type: 'function',
-        function: 'confirm'
+        function: 'confirmHTML'
       },
       {
         human: false,
@@ -312,7 +289,7 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormConfirm'
+          content: 'FormConfirmWithInnerHTML'
         }
       }
     ]

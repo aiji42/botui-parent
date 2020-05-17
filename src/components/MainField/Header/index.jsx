@@ -4,9 +4,10 @@ import Logo from './Logo';
 import { css } from '@emotion/core';
 
 const style = css`
-    background-color: #20224a;
+    background-color: #f5f5f5;
     width: 100%;
     text-align: center;
+    border-bottom: solid 1px #d0cece;
   `;
 
 const Header = ({ css: cssStyle, ...props }) => (

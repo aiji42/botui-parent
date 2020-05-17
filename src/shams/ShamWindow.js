@@ -1,4 +1,13 @@
 import ShamForm from './ShamForm';
+import { urlEncode, convert } from 'encoding-japanese';
+
+const parseBlob = blob => {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => { resolve(reader.result); };
+    reader.readAsText(blob, 'shift-jis');
+  });
+};
 
 export default class ShamWindow {
   constructor({ document, url, form }) {
@@ -17,11 +26,15 @@ export default class ShamWindow {
   }
 
   static async post({ url, body }) {
+    const bodyStrings = [];
+    for (const [key, value] of body) {
+      bodyStrings.push(`${key}=${urlEncode(convert(value, 'SJIS'))}`);
+    }
     const res = await fetch(url,
       {
         credentials: 'include',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body,
+        body: bodyStrings.join('&'),
         method: 'POST',
         mode: 'cors',
       });
@@ -29,7 +42,7 @@ export default class ShamWindow {
   }
 
   static async getDocumentFromResponse(res) {
-    const text = await res.text();
+    const text = await parseBlob(await res.blob());
     return new DOMParser().parseFromString(text, 'text/html');
   }
 

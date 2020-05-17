@@ -1,24 +1,17 @@
 import {
-  isSelectableDeriveryDateTime,
   paymentMethods,
-  deliveryDateChoices,
-  deliveryTimeChoices,
-  confirm,
-  conversionPrepare,
-  conversion,
-  shouldGoPaymentPage
+  isSelectedCreditCard,
+  paymentTimeChoices,
+  creditToken,
+  confirmHTML
 } from '../apis';
 
 const actions = {
-  isSelectableDeriveryDateTime: async (data) => await isSelectableDeriveryDateTime(data),
   paymentMethods: async (data) => await paymentMethods(data),
-  deliveryDateChoices: async (data) => await deliveryDateChoices(data),
-  deliveryTimeChoices: async (data) => await deliveryTimeChoices(data),
-  isCashLess: async (data) => data.payment === '5',
-  confirm: async (data) => await confirm(data),
-  conversionPrepare: async (data) => await conversionPrepare(data),
-  conversion: async (data) => await conversion(data),
-  shouldGoPaymentPage: async (data) => await shouldGoPaymentPage(data)
+  isSelectedCreditCard: async (data) => await isSelectedCreditCard(data),
+  paymentTimeChoices: async (data) => await paymentTimeChoices(data),
+  creditToken: async (data) => await creditToken(data),
+  confirmHTML: async (data) => await confirmHTML(data)
 };
 
 export default actions;

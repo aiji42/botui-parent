@@ -4,7 +4,7 @@ import logo from './logo.png';
 
 const style = css`
   box-sizing: content-box;
-  max-height: 25px;
+  max-height: 30px;
   margin-right: auto;
   margin-left: auto;
   padding: 10px 0;
