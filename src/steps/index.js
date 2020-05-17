@@ -34,7 +34,7 @@ const makeSettleInfo = (data) => (
   {
     settleTypeSelect: data.settleTypeSelect,
     cardTypeSelect: 'n', // 常に新規カード
-    payment: data.payment || '01',
+    payment: data.paymentTime || '01',
     token: (data.creditToken && data.creditToken.token) || '',
     validity: (data.creditToken && data.creditToken.validity) || '',
     maskedPan: (data.creditToken && data.creditToken.maskedpan) || '',
@@ -82,6 +82,18 @@ export const confirmStep = async (data) => {
   } catch (_) {
     console.log(_);
     // return confirmStep(data);
+  }
+  return step;
+};
+
+export const conversionStep = async (data) => {
+  const step = await confirmStep(data);
+  step.form.append({ order: '' });
+  try {
+    await step.forward();
+  } catch (_) {
+    console.log(_);
+    // return conversionStep(data);
   }
   return step;
 };

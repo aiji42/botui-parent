@@ -16,13 +16,13 @@ export default class ShamWindow {
     this.form = new ShamForm(form);
   }
 
-  async forward({ selector }) {
+  async forward({ selector = null } = {}) {
     const { url, form } = this;
     const requestUrl = new URL(form.action.value, url);
     const res = await ShamWindow.post({ url: requestUrl.href, body: form.requestBody });
     this.document = await ShamWindow.getDocumentFromResponse(res);
     this.url = res.url;
-    this.form = new ShamForm(this.document.querySelector(selector));
+    this.form = new ShamForm(selector ? this.document.querySelector(selector) : document.createElement('form'));
   }
 
   static async post({ url, body }) {
