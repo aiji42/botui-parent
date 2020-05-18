@@ -40,6 +40,12 @@ export const confirmHTML = async (data) => {
     <p style="margin:0px">${delivery.address}</p>
 
     <hr size="1">
+    <h4 style="margin:5px;">お届け方法</h4>
+    <p style="margin:0px">${delivery.delivery.method}</p>
+    ${delivery.delivery.date ? `<p style="margin:0px">希望日: ${delivery.delivery.date}</p>` : ''}
+    ${delivery.delivery.time ? `<p style="margin:0px">希望時間帯: ${delivery.delivery.time}</p>` : ''}
+
+    <hr size="1">
     <h4 style="margin:5px;">お支払い方法</h4>
     <p style="margin:0px">${payment.payment}</p>
 
@@ -77,13 +83,16 @@ const getCartSum = (confirmDocument) => {
 };
 
 const getDelivery = (confirmDocument) => {
-  const [name, address, delivery] = Array.from(confirmDocument.body.querySelectorAll('.FS2_OrderConfirm_Delivery_table td'));
-  return {
-    name: name.innerText.trim(),
-    address: address.innerText.trim().replace(/〒\d{3}-\d{4}\s/, (match) => `${match}<br />`).replace(/TEL/, '<br />TEL'),
-    delivery: delivery.innerText.trim()
-  };
+  const [name, address, ...deliveryInfo] = Array.from(confirmDocument.body.querySelectorAll('.FS2_OrderConfirm_Delivery_table td'));
+  const delivery = {};
+  if (deliveryInfo.length > 1) [delivery.date, delivery.time, delivery.method] = deliveryInfo.map(({ innerText }) => innerText.trim());
+  else [delivery.method] = deliveryInfo.map(({ innerText }) => innerText.trim());
 
+  return {
+    name: name.innerText.trim().replace(/（.+?）/g, ''),
+    address: address.innerText.trim().replace(/〒\d{3}-\d{4}\s/, (match) => `${match}<br />`).replace(/TEL/, '<br />TEL'),
+    delivery
+  };
 };
 
 const getPayment = (confirmDocument) => {

@@ -1,5 +1,11 @@
 import { ShamWindow } from '../shams';
 import * as libphonenumber from 'libphonenumber-js';
+import objectHash from 'object-hash';
+import chace from 'timed-cache';
+
+const stepCache = new chace({ defaultTtl: 10 * 1000 }); // 10s
+
+const cacheKey = (method, data) => objectHash({ [method]: objectHash(data) });
 
 const convertPrefCode = (pref) => [
   '00101', '00202', '00204', '00305', '00203', '00306', '00307', '00408', '00409', '00410',
@@ -38,6 +44,9 @@ const makeSettleInfo = (data) => (
     token: (data.creditToken && data.creditToken.token) || '',
     validity: (data.creditToken && data.creditToken.validity) || '',
     maskedPan: (data.creditToken && data.creditToken.maskedpan) || '',
+    deliveryHopeDate: data.deliveryHopeDate || '',
+    deliveryHopeTime: data.deliveryHopeTime || '',
+    communication: 'キャンセルをお願いします', // TODO: テストのときだけ
     order: ''
   }
 );
@@ -63,6 +72,9 @@ const deliveryEditStep = async (data) => {
 };
 
 export const settleEditStep = async (data) => {
+  const key = cacheKey('settleEditStep', makeUserInfo(data));
+  if (stepCache.get(key)) return stepCache.get(key);
+
   const step = await deliveryEditStep(data);
   step.form.append({ shippingAddress: 0, deliveryInputSubmit: '' }); // 自宅を自動選択
   try {
@@ -71,6 +83,8 @@ export const settleEditStep = async (data) => {
     console.log(_);
     // return settleEditStep(data);
   }
+
+  stepCache.put(key, step);
   return step;
 };
 

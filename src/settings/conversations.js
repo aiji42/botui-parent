@@ -270,8 +270,64 @@ export const conversations = [
     ]
   },
   {
-    id: 'confirm',
+    id: 'delivery-dateTime',
     trigger: 'payment-paymentTime',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectableDeliveryDateTime',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryDateChoices'
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryTimeChoices'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お届け日時の希望を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomSelect',
+          props: {
+            selects: [
+              {
+                name: 'deliveryHopeDate',
+                title: 'お届け希望日',
+                stored: true,
+                storedName: 'deliveryDateChoices'
+              },
+              {
+                name: 'deliveryHopeTime',
+                title: 'お届け希望時間帯',
+                stored: true,
+                storedName: 'deliveryTimeChoices'
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'confirm',
+    trigger: 'delivery-dateTime',
     actions: [
       {
         human: false,
