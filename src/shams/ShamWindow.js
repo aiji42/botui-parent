@@ -1,13 +1,6 @@
 import ShamForm from './ShamForm';
 import { urlEncode, convert } from 'encoding-japanese';
-
-const parseBlob = blob => {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = () => { resolve(reader.result); };
-    reader.readAsText(blob, 'shift-jis');
-  });
-};
+import axios from 'axios';
 
 export default class ShamWindow {
   constructor({ document, url, form }) {
@@ -21,8 +14,8 @@ export default class ShamWindow {
     const requestUrl = new URL(form.action.value, url);
     const res = await ShamWindow.post({ url: requestUrl.href, body: form.requestBody });
     this.document = await ShamWindow.getDocumentFromResponse(res);
-    this.url = res.url;
-    this.form = new ShamForm(selector ? this.document.querySelector(selector) : document.createElement('form'));
+    this.url = res.request.responseURL;
+    this.form = new ShamForm(selector ? this.document.querySelector(selector) : window.document.createElement('form'));
   }
 
   static async post({ url, body }) {
@@ -30,24 +23,21 @@ export default class ShamWindow {
     for (const [key, value] of body) {
       bodyStrings.push(`${key}=${urlEncode(convert(value, 'SJIS'))}`);
     }
-    const res = await fetch(url,
-      {
-        credentials: 'include',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: bodyStrings.join('&'),
-        method: 'POST',
-        mode: 'cors',
-      });
+    const data = bodyStrings.join('&');
+    const res = await axios.post(url, data, {
+      withCredentials: true,
+      headers: { 'content-type': 'application/x-www-form-urlencoded' }
+    });
+
     return ShamWindow.handleErrors(res);
   }
 
   static async getDocumentFromResponse(res) {
-    const text = await parseBlob(await res.blob());
-    return new DOMParser().parseFromString(text, 'text/html');
+    return new DOMParser().parseFromString(res.data, 'text/html');
   }
 
   static handleErrors(res) {
-    if (res.ok) return res;
+    if (res.status === 200) return res;
 
     switch (res.status) {
       case 400: throw Error('INVALID_TOKEN');

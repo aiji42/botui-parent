@@ -2,8 +2,9 @@ import { ShamWindow } from '../shams';
 import * as libphonenumber from 'libphonenumber-js';
 import objectHash from 'object-hash';
 import chace from 'timed-cache';
+import axios from 'axios';
 
-const stepCache = new chace({ defaultTtl: 10 * 1000 }); // 10s
+const stepCache = new chace({ defaultTtl: 3 * 1000 }); // 3s
 
 const cacheKey = (method, data) => objectHash({ [method]: objectHash(data) });
 
@@ -52,10 +53,10 @@ const makeSettleInfo = (data) => (
 );
 
 export const guestEntryStep = async () => {
-  const res = await fetch('/fs/primedirect/GuestEntry.html');
-  const document = await ShamWindow.getDocumentFromResponse(res);
-  const form = document.querySelector('form[name=form]');
-  const step = new ShamWindow({ form, document, url: res.url });
+  const res = await axios.get('/fs/primedirect/GuestEntry.html');
+  const doc = await ShamWindow.getDocumentFromResponse(res);
+  const form = doc.querySelector('form[name=form]');
+  const step = new ShamWindow({ form, document: doc, url: res.request.responseURL });
   return step;
 };
 

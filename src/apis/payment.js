@@ -17,6 +17,7 @@ export const paymentMethods = async (data) => {
 };
 
 export const isSelectedCreditCard = async (data) => (await paymentMethods(data))[data.settleTypeSelect] === 'クレジットカード決済';
+export const isSelectedRakutenPay = async (data) => (await paymentMethods(data))[data.settleTypeSelect] === '楽天ペイ';
 
 export const paymentTimeChoices = async (data) => {
   const step = await settleEditStep(data);
