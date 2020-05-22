@@ -135,8 +135,104 @@ export const conversations = [
     ]
   },
   {
-    id: 'payment-method',
+    id: 'delivery-method',
     trigger: 'userInfo-mailmagazine',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectableDeliveryMethod',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryMethodChoices'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご希望のお届け方法を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'deliveryServiceSelect',
+            stored: true,
+            storedName: 'deliveryMethodChoices'
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'delivery-dateTime',
+    trigger: 'delivery-method',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectableDeliveryDateTime',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryDateChoices'
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'deliveryTimeChoices'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お届け日時の希望を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomSelect',
+          props: {
+            selects: [
+              {
+                name: 'deliveryHopeDate',
+                title: 'お届け希望日',
+                stored: true,
+                storedName: 'deliveryDateChoices'
+              },
+              {
+                name: 'deliveryHopeTime',
+                title: 'お届け希望時間帯',
+                stored: true,
+                storedName: 'deliveryTimeChoices'
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'payment-method',
+    trigger: 'delivery-dateTime',
     countable: true,
     actions: [
       {
@@ -270,64 +366,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'delivery-dateTime',
-    trigger: 'payment-paymentTime',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectableDeliveryDateTime',
-        whenReturn: {
-          false: 'skip',
-          true: 'continue'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryDateChoices'
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'deliveryTimeChoices'
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お届け日時の希望を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomSelect',
-          props: {
-            selects: [
-              {
-                name: 'deliveryHopeDate',
-                title: 'お届け希望日',
-                stored: true,
-                storedName: 'deliveryDateChoices'
-              },
-              {
-                name: 'deliveryHopeTime',
-                title: 'お届け希望時間帯',
-                stored: true,
-                storedName: 'deliveryTimeChoices'
-              }
-            ]
-          }
-        }
-      }
-    ]
-  },
-  {
     id: 'confirm',
-    trigger: 'delivery-dateTime',
+    trigger: 'payment-paymentTime',
     actions: [
       {
         human: false,
@@ -374,23 +414,6 @@ export const conversations = [
         type: 'message',
         options: {
           dataStoreAnnounce: 'conversion'
-        }
-      },
-      {
-        human: false,
-        type: 'stop'
-      }
-    ]
-  },
-  {
-    id: 'complete',
-    trigger: 'conversion',
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お手続きが完了しました。サンクスページに移動します。'
         }
       },
       {

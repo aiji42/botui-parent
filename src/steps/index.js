@@ -37,8 +37,8 @@ const makeUserInfo = (data) => {
   };
 };
 
-const makeSettleInfo = (data) => (
-  {
+const makeSettleInfo = (data) => {
+  const settleInfo = {
     settleTypeSelect: data.settleTypeSelect,
     cardTypeSelect: 'n', // 常に新規カード
     payment: data.paymentTime || '01',
@@ -49,8 +49,9 @@ const makeSettleInfo = (data) => (
     deliveryHopeTime: data.deliveryHopeTime || '',
     communication: 'キャンセルをお願いします', // TODO: テストのときだけ
     order: ''
-  }
-);
+  };
+  return data.deliveryServiceSelect ? { ...settleInfo, deliveryServiceSelect: data.deliveryServiceSelect } : settleInfo;
+};
 
 export const guestEntryStep = async () => {
   const res = await axios.get('/fs/primedirect/GuestEntry.html');
