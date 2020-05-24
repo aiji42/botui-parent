@@ -305,7 +305,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'ご購入内容の確認を行い、お間違いがなければ確定ボタンをタップしてください。'
+          content: 'ご購入内容の確認を行い、お間違いがなければボタンをタップしてください。'
         }
       },
       {
