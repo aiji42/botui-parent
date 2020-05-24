@@ -366,8 +366,34 @@ export const conversations = [
     ]
   },
   {
-    id: 'confirm',
+    id: 'others-comunicate',
     trigger: 'payment-paymentTime',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お伝え事項があればご記入ください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomTextarea',
+          props: {
+            name: 'comunicate',
+            title: '備考',
+            placeholder: 'のし袋希望など'
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'confirm',
+    trigger: 'others-comunicateuej',
     actions: [
       {
         human: false,
