@@ -366,7 +366,7 @@ export const conversations = [
     ]
   },
   {
-    id: 'others-comunicate',
+    id: 'others-communication',
     trigger: 'payment-paymentTime',
     countable: true,
     actions: [
@@ -383,9 +383,9 @@ export const conversations = [
         options: {
           content: 'FormCustomTextarea',
           props: {
-            name: 'comunicate',
+            name: 'communication',
             title: '備考',
-            placeholder: 'のし袋希望など'
+            placeholder: '例) のし紙をつけてください。'
           }
         }
       }
@@ -393,7 +393,7 @@ export const conversations = [
   },
   {
     id: 'confirm',
-    trigger: 'others-comunicateuej',
+    trigger: 'others-communication',
     actions: [
       {
         human: false,
@@ -405,6 +405,13 @@ export const conversations = [
         type: 'message',
         options: {
           content: 'ご購入内容の確認を行い、お間違いがなければ確定ボタンをタップしてください。'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '入力内容修正の場合は、先程の入力した項目までさかのぼってご修正ください'
         }
       },
       {

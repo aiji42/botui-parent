@@ -47,7 +47,7 @@ const makeSettleInfo = (data) => {
     maskedPan: (data.creditToken && data.creditToken.maskedpan) || '',
     deliveryHopeDate: data.deliveryHopeDate || '',
     deliveryHopeTime: data.deliveryHopeTime || '',
-    communication: 'キャンセルをお願いします', // TODO: テストのときだけ
+    communication: data.communication || '',
     order: ''
   };
   return data.deliveryServiceSelect ? { ...settleInfo, deliveryServiceSelect: data.deliveryServiceSelect } : settleInfo;
