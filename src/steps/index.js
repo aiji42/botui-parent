@@ -1,5 +1,5 @@
 import { ShamWindow, ShamForm } from '../shams';
-import PhoneNumber from 'awesome-phonenumber';
+import * as libphonenumber from 'libphonenumber-js';
 import axios from 'axios';
 import * as rax from 'retry-axios';
 const axiosInstance = axios.create({ timeout: 5000 });
@@ -22,7 +22,7 @@ const convertPrefCode = (pref) => [
 ][pref - 1];
 
 const makeUserInfo = (data) => {
-  const [tel1, tel2, tel3] = new PhoneNumber(data.tel, 'JP').getNumber('national').split('-');
+  const [tel1, tel2, tel3] = (new libphonenumber.AsYouType('JP').input(data.tel)).split('-');
   return {
     lastName: data.familyName,
     lastNameKana: data.familyNameKana,
