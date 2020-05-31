@@ -1,7 +1,7 @@
-import { confirmStep } from '../steps';
+import { getCurrentStep } from '../steps';
 
-export const confirmHTML = async (data) => {
-  const step = await confirmStep(data);
+export const confirmHTML = () => {
+  const step = getCurrentStep();
   const { document: shamDocument } = step;
   const items = getItems(shamDocument);
   const total = getCartSum(shamDocument);
@@ -30,6 +30,7 @@ export const confirmHTML = async (data) => {
       <dt style="float:left;">商品合計(税込)</dt><dd style="margin-left:110px;">${total.itemSum}</dd>
       <dt style="float:left;">決済手数料</dt><dd style="margin-left:110px;">${total.settle}</dd>
       <dt style="float:left;">送料</dt><dd style="margin-left:110px;">${total.postage}</dd>
+      <dt style="float:left;">使用ポイント</dt><dd style="margin-left:110px;">${total.usePoint}</dd>
       <dt style="float:left;"><strong>総合計</strong></dt><dd style="margin-left:110px;"><strong>${total.total}</strong></dd>
       <dt style="float:left;">獲得ポイント</dt><dd style="margin-left:110px;">${total.getPoint}</dd>
     </dl>
@@ -78,6 +79,7 @@ const getCartSum = (confirmDocument) => {
     settle: (sumTable.querySelector('.FS2_Cart_Detail_Settle td') && sumTable.querySelector('.FS2_Cart_Detail_Settle td').innerText.trim()) || '-',
     postage: sumTable.querySelector('.FS2_Cart_Detail_Postage td').innerText.trim(),
     total: sumTable.querySelector('.FS2_Cart_Detail_InclusiveSum td').innerText.trim(),
+    usePoint: (sumTable.querySelector('.FS2_Cart_Detail_UsePoint td') && sumTable.querySelector('.FS2_Cart_Detail_UsePoint td').innerText.trim()) || '-',
     getPoint: sumTable.querySelector('.FS2_Cart_Detail_GetPoint td').innerText.trim()
   };
 };

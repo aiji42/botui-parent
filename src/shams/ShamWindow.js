@@ -1,6 +1,15 @@
 import ShamForm from './ShamForm';
 import { urlEncode, convert } from 'encoding-japanese';
 import axios from 'axios';
+import * as rax from 'retry-axios';
+const axiosInstance = axios.create({ timeout: 10000 });
+axiosInstance.defaults.raxConfig = {
+  instance: axiosInstance,
+  retry: 3,
+  noResponseRetries: 3,
+  retryDelay: 1000
+};
+rax.attach(axiosInstance);
 
 export default class ShamWindow {
   constructor({ document, url, form }) {
@@ -24,7 +33,7 @@ export default class ShamWindow {
       bodyStrings.push(`${key}=${urlEncode(convert(value, 'SJIS'))}`);
     }
     const data = bodyStrings.join('&');
-    const res = await axios.post(url, data, {
+    const res = await axiosInstance.post(url, data, {
       withCredentials: true,
       headers: { 'content-type': 'application/x-www-form-urlencoded' }
     });

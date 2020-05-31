@@ -1,4 +1,9 @@
 import {
+  goToSettleEditStep,
+  goToConfirmStep,
+  isMemberEntry,
+  isInputablePassword,
+  isInputablePrivacyAgree,
   paymentMethods,
   isSelectedCreditCard,
   paymentTimeChoices,
@@ -9,21 +14,36 @@ import {
   deliveryMethodChoices,
   isSelectableDeliveryDateTime,
   deliveryDateChoices,
-  deliveryTimeChoices
+  deliveryTimeChoices,
+  pointAnnounce,
+  isUseablePoints,
+  isInputablePoints,
+  pointUseageChoices,
+  pointUseableValidate
 } from '../apis';
 
 const actions = {
-  paymentMethods: async (data) => await paymentMethods(data),
+  goToSettleEditStep: async (data) => await goToSettleEditStep(data),
+  goToConfirmStep: async (data) => await goToConfirmStep(data),
+  isMemberEntry: () => isMemberEntry(),
+  isInputablePassword: async () => await isInputablePassword(),
+  isInputablePrivacyAgree: async () => await isInputablePrivacyAgree(),
+  paymentMethods: async () => await paymentMethods(),
   isSelectedCreditCard: async (data) => await isSelectedCreditCard(data),
-  paymentTimeChoices: async (data) => await paymentTimeChoices(data),
+  paymentTimeChoices: async () => await paymentTimeChoices(),
   creditToken: async (data) => await creditToken(data),
-  confirmHTML: async (data) => await confirmHTML(data),
+  confirmHTML: () => confirmHTML(),
   conversion: async (data) => await conversion(data),
-  isSelectableDeliveryMethod: async (data) => await isSelectableDeliveryMethod(data),
-  deliveryMethodChoices: async (data) => await deliveryMethodChoices(data),
+  isSelectableDeliveryMethod: async () => await isSelectableDeliveryMethod(),
+  deliveryMethodChoices: async () => await deliveryMethodChoices(),
   isSelectableDeliveryDateTime: async (data) => await isSelectableDeliveryDateTime(data),
   deliveryDateChoices: async (data) => await deliveryDateChoices(data),
-  deliveryTimeChoices: async (data) => await deliveryTimeChoices(data)
+  deliveryTimeChoices: async (data) => await deliveryTimeChoices(data),
+  pointAnnounce: async () => await pointAnnounce(),
+  isUseablePoints: async () => await isUseablePoints(),
+  isInputablePoints: async (data) => await isInputablePoints(data),
+  pointUseageChoices: async () => await pointUseageChoices(),
+  pointUseableValidate: async (data) => await pointUseableValidate(data),
 };
 
 export default actions;

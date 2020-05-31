@@ -110,8 +110,29 @@ export const conversations = [
     ]
   },
   {
-    id: 'userInfo-mailmagazine',
+    id: 'userInfo-birthday',
     trigger: 'userInfo-tel',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '生年月日をご入力ください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormBirthDay'
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-mailmagazine',
+    trigger: 'userInfo-birthday',
     countable: true,
     actions: [
       {
@@ -135,8 +156,152 @@ export const conversations = [
     ]
   },
   {
-    id: 'delivery-method',
+    id: 'userInfo-mailmagazine',
+    trigger: 'userInfo-birthday',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'プライムダイレクトのお得情報などが届くメールマガジンに登録しますか？'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'newsletter',
+            choices: { '01': '登録する', '02': '登録しない' }
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-password',
     trigger: 'userInfo-mailmagazine',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isInputablePassword',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'ご希望のパスワードを入力して下さい。',
+        },
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomInput',
+          props: {
+            inputs: [{
+              name: 'password',
+              type: 'password',
+              title: 'パスワード',
+              secure: true,
+              validation: {
+                type: 'string',
+                required: ['入力してください'],
+                matches: [/^[a-z\d`\-=~!@#$%^&*()_+[\]{}|;':,./<>?]+$/i, '使用できない文字が含まれています(半角英数字と記号で入力してください)'],
+                min: [6, '6文字以上で入力してください'],
+                max: [30, '30文字以内で入力してください']
+              }
+            }]
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'userInfo-privacyAgree',
+    trigger: 'userInfo-password',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isInputablePrivacyAgree',
+        whenReturn: {
+          false: 'skip',
+          true: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '上記の内容で会員登録をさせていただきます。(ご購入のお手続きはまだ完了していません)',
+        },
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'パスワードはご購入手続きが完了するまで変更することができませんので、ご注意ください。',
+        },
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '<a href="https://www.primedirect.jp/policy/" target="_blank">個人情報のお取扱い</a>をご確認のうえ、お進みください。',
+        },
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'privacyAgree',
+            choices: { 'on': '個人情報保護方針に同意の上、会員登録する' }
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'stepForward-settleEdit',
+    trigger: 'userInfo-privacyAgree',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'goToSettleEditStep',
+        whenReturn: {
+          true: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          dataStoreAnnounce: 'goToSettleEditStep'
+        }
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'delivery-method',
+    trigger: 'stepForward-settleEdit',
     countable: true,
     actions: [
       {
@@ -293,10 +458,7 @@ export const conversations = [
         human: true,
         type: 'component',
         options: {
-          content: 'FormCreditCard',
-          props: {
-            brands: ['visa', 'jcb', 'mastercard', 'amex', 'diners']
-          }
+          content: 'FormCreditCard'
         }
       }
     ]
@@ -325,7 +487,7 @@ export const conversations = [
   {
     id: 'payment-paymentTime',
     trigger: 'payment-creditcardCreateToken',
-    countable: true,
+    countable: false,
     actions: [
       {
         human: false,
@@ -340,13 +502,6 @@ export const conversations = [
         human: false,
         type: 'function',
         function: 'paymentTimeChoices',
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お支払い回数を選択してください。'
-        }
       },
       {
         human: true,
@@ -366,8 +521,143 @@ export const conversations = [
     ]
   },
   {
-    id: 'others-communication',
+    id: 'others-pointUseage',
     trigger: 'payment-paymentTime',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isUseablePoints',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'pointUseageChoices',
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'pointAnnounce',
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          dataStoreAnnounce: 'pointAnnounce'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'pointSelect',
+            stored: true,
+            storedName: 'pointUseageChoices'
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'others-pointInput',
+    trigger: 'others-pointUseage',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isUseablePoints',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'isInputablePoints',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomInput',
+          props: {
+            inputs: [{
+              name: 'usePoint',
+              type: 'tel',
+              title: '使用するポイント数',
+              validation: {
+                type: 'number',
+                required: ['入力してください'],
+                integer: ['整数の数字で入力してください'],
+                min: [0, '1ポイント以上を指定してください']
+              }
+            }]
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'others-pointValidate',
+    trigger: 'others-pointInput',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isUseablePoints',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'isInputablePoints',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'pointUseableValidate',
+        whenReturn: {
+          true: 'skip',
+          false: 'continue'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '使用できるポイント数を確認してください。'
+        }
+      },
+      {
+        human: false,
+        type: 'stop'
+      }
+    ]
+  },
+  {
+    id: 'others-communication',
+    trigger: 'others-pointValidate',
     countable: true,
     actions: [
       {
@@ -392,8 +682,20 @@ export const conversations = [
     ]
   },
   {
-    id: 'confirm',
+    id: 'stepForward-confirm',
     trigger: 'others-communication',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'goToConfirmStep'
+      }
+    ]
+  },
+  {
+    id: 'confirm',
+    trigger: 'stepForward-confirm',
     actions: [
       {
         human: false,
