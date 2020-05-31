@@ -9,7 +9,7 @@
     "axios": "^0.19.2",
     "body-scroll-lock": "^3.0.2",
     "encoding-japanese": "^1.0.30",
-    "libphonenumber-js": "^1.7.52",
+    "libphonenumber-js": "^1.7.51",
     "postmate": "dollarshaveclub/postmate#master",
     "rc-progress": "^3.0.0",
     "react": "^16.13.1",
