@@ -10,8 +10,8 @@ const base = css`
 
 const span = css`
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.9em;
-  line-height: 0.9em;
+  font-size: 1em;
+  line-height: 2em;
   text-align: center;
   color: gray;
 `;
