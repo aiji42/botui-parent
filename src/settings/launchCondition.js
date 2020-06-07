@@ -1,4 +1,4 @@
-import DeviceDetector from 'device-detector-js';
+import isMobile from 'ismobilejs';
 
 const conditions = JSON.parse(process.env.BOTUI_LAUNCH_CONDITION || '{}');
 
@@ -27,11 +27,13 @@ const referrerCheck = (conditions) => {
 };
 
 const deviceCheck = (conditions) => {
-  const deviceDetector = new DeviceDetector();
-  const { device } = deviceDetector.parse(window.navigator.userAgent);
-  if (!device) return false;
-
-  const checker = (condition) => device.type === condition;
+  const { any, phone, tablet } = isMobile(window.navigator);
+  const checker = (condition) => {
+    if (condition === 'smartphone') return phone;
+    if (condition === 'tablet') return tablet;
+    if (condition === 'desktop') return !any;
+    return false;
+  };
 
   if (conditions instanceof Array) return conditions.some(checker);
   else return checker(conditions);
