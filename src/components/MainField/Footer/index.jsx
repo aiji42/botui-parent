@@ -5,13 +5,11 @@ import { css } from '@emotion/core';
 import { countableIds } from '../../../util/conversations';
 
 const base = css`
-  padding: 0 10px
+  padding: 5px 10px 0px 10px
 `;
 
 const span = css`
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.9em;
-  line-height: 0.9em;
   text-align: center;
   color: gray;
 `;

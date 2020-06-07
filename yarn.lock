@@ -2541,6 +2541,11 @@ detect-node@^2.0.4:
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.4.tgz#014ee8f8f669c5c58023da64b8179c083a28c46c"
   integrity sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==
 
+device-detector-js@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/device-detector-js/-/device-detector-js-2.2.1.tgz#c6409cb56001923fd1b40ca11fcaf932000462e0"
+  integrity sha512-1Gt0n8+1ppJNfrpUIWvmLnAG+fMMh5EVbMaWAs3a2D81tJBs0NHMRD6iScjL0pPCZSeAyIFNNMe6qvhDa+gEcQ==
+
 diffie-hellman@^5.0.0:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/diffie-hellman/-/diffie-hellman-5.0.3.tgz#40e8ee98f55a2149607146921c63e1ae5f3d2875"
@@ -4229,7 +4234,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libphonenumber-js@^1.7.51:
+libphonenumber-js@^1.7.52:
   version "1.7.52"
   resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.52.tgz#a30dc8ec4dfa2ce651a6abf76c6b141b244b1aa3"
   integrity sha512-NnJbWGRWIAQwz3UOXJoka92FJqmr/VvGIHienUMnBf7QNSCYF2WhvknEgpQIhL8VLZp/rJg3m3czOHRAmyYMLg==
