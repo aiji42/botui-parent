@@ -1,3 +1,5 @@
+import image from '../../public/90s_blue.png'
+
 export const conversations = [
   {
     id: 'hello',
@@ -20,7 +22,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: '入力はたった90秒で完了です！'
+          content: `<img src="${image}" width="100%" />`
         }
       }
     ]
