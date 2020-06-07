@@ -17,7 +17,13 @@ export const conversations = [
         options: {
           content: 'ご購入完了まで、私がお手伝いさせていただきます。'
         }
-      },
+      }
+    ]
+  },
+  {
+    id: 'promotion90s',
+    trigger: 'hello',
+    actions: [
       {
         human: false,
         type: 'message',
@@ -36,7 +42,7 @@ export const conversations = [
   },
   {
     id: 'userInfo-name',
-    trigger: 'hello',
+    trigger: 'promotion90s',
     countable: true,
     actions: [
       {
