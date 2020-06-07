@@ -1,3 +1,5 @@
+import image from '../../public/90s_blue.png';
+
 export const conversations = [
   {
     id: 'hello',
@@ -20,7 +22,14 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: '入力はたった90秒で完了です！'
+          content: `<img src="${image}" width="100%" />`
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '通常のフォームでお手続きを行う場合には、右上のバツ印をクリックしてください。'
         }
       }
     ]
@@ -34,7 +43,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'お名前を教えて下さい。'
+          content: 'まずは、お名前を教えて下さい。'
         }
       },
       {
@@ -277,6 +286,18 @@ export const conversations = [
         type: 'message',
         options: {
           content: 'お支払い方法を選択してください。'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentMessage'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          dataStoreAnnounce: 'paymentMessage'
         }
       },
       {
