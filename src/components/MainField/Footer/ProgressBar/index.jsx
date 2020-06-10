@@ -8,9 +8,11 @@ const percentage = ({ id }) => conversationIds().indexOf(id) / conversationIds()
 const ProgressBar = ({ handshakeChild }) => {
   const [percent, setPercent] = useState(0);
   useEffect(() => {
+    let unmounted = false;
     handshakeChild && handshakeChild.on('updateStatus', (data) => {
-      setPercent(percentage(data));
+      !unmounted && setPercent(percentage(data));
     });
+    return () => { unmounted = true; };
   }, [handshakeChild]);
 
   return (
