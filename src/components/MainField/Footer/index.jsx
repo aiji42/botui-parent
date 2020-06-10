@@ -19,9 +19,11 @@ const remainingNumber = ({ id }) => countableIds().reverse().indexOf(id) + 1;
 const Footer = ({ handshakeChild, css: cssStyle, ...props }) => {
   const [remaining, setRemaining] = useState(null);
   useEffect(() => {
+    let unmounted = false;
     handshakeChild && handshakeChild.on('updateStatus', (data) => {
-      setRemaining(remainingNumber(data));
+      !unmounted && setRemaining(remainingNumber(data));
     });
+    return () => { unmounted = true; };
   }, [handshakeChild]);
 
   return (
