@@ -164,7 +164,7 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'プライムダイレクトのお得情報などが届くメールマガジンに登録しますか？'
+          content: 'お得な情報をメールマガジンで受け取りますか？'
         }
       },
       {
@@ -216,8 +216,8 @@ export const conversations = [
                 type: 'string',
                 required: ['入力してください'],
                 matches: [/^[a-z\d`\-=~!@#$%^&*()_+[\]{}|;':,./<>?]+$/i, '使用できない文字が含まれています(半角英数字と記号で入力してください)'],
-                min: [6, '6文字以上で入力してください'],
-                max: [30, '30文字以内で入力してください']
+                min: [6, '6文字以上の半角英数字で入力してください'],
+                max: [30, '30文字以内の半角英数字で入力してください']
               }
             }]
           }
@@ -292,6 +292,13 @@ export const conversations = [
         options: {
           dataStoreAnnounce: 'goToSettleEditStep'
         }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '上の入力欄に戻って入力変更してください。',
+        },
       },
       {
         human: false,
