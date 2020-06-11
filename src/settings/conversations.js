@@ -139,31 +139,6 @@ export const conversations = [
         human: false,
         type: 'message',
         options: {
-          content: 'プライムダイレクトのお得情報などが届くメールマガジンに登録しますか？'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomRadioGroup',
-          props: {
-            name: 'newsletter',
-            choices: { '01': '登録する', '02': '登録しない' }
-          }
-        }
-      }
-    ]
-  },
-  {
-    id: 'userInfo-mailmagazine',
-    trigger: 'userInfo-birthday',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'message',
-        options: {
           content: 'お得な情報をメールマガジンで受け取りますか？'
         }
       },
