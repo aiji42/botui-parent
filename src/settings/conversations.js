@@ -378,133 +378,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'payment-method',
-    trigger: 'delivery-dateTime',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'paymentMethods'
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'お支払い方法を選択してください。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomRadioGroup',
-          props: {
-            name: 'settleTypeSelect',
-            stored: true,
-            storedName: 'paymentMethods'
-          }
-        }
-      }
-    ]
-  },
-  {
-    id: 'payment-creditcard',
-    trigger: 'payment-method',
-    countable: true,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectedCreditCard',
-        whenReturn: {
-          true: 'continue',
-          false: 'skip'
-        }
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'クレジットカードの情報を入力して下さい。'
-        }
-      },
-      {
-        human: false,
-        type: 'message',
-        options: {
-          content: 'カード情報の入力や送信は暗号化(SSL)処理されますので、安全にご利用いただけます。'
-        }
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCreditCard'
-        }
-      }
-    ]
-  },
-  {
-    id: 'payment-creditcardCreateToken',
-    trigger: 'payment-creditcard',
-    countable: false,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectedCreditCard',
-        whenReturn: {
-          true: 'continue',
-          false: 'skip'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'creditToken'
-      }
-    ]
-  },
-  {
-    id: 'payment-paymentTime',
-    trigger: 'payment-creditcardCreateToken',
-    countable: false,
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isSelectedCreditCard',
-        whenReturn: {
-          true: 'continue',
-          false: 'skip'
-        }
-      },
-      {
-        human: false,
-        type: 'function',
-        function: 'paymentTimeChoices',
-      },
-      {
-        human: true,
-        type: 'component',
-        options: {
-          content: 'FormCustomSelect',
-          props: {
-            selects: [{
-              name: 'paymentTime',
-              title: '支払回数',
-              stored: true,
-              storedName: 'paymentTimeChoices'
-            }]
-          }
-        }
-      }
-    ]
-  },
-  {
     id: 'others-pointUseage',
-    trigger: 'payment-paymentTime',
+    trigger: 'delivery-dateTime',
     countable: true,
     actions: [
       {
@@ -638,8 +513,133 @@ export const conversations = [
     ]
   },
   {
-    id: 'others-communication',
+    id: 'payment-method',
     trigger: 'others-pointValidate',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentMethods'
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'お支払い方法を選択してください。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomRadioGroup',
+          props: {
+            name: 'settleTypeSelect',
+            stored: true,
+            storedName: 'paymentMethods'
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'payment-creditcard',
+    trigger: 'payment-method',
+    countable: true,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCreditCard',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'クレジットカードの情報を入力して下さい。'
+        }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: 'カード情報の入力や送信は暗号化(SSL)処理されますので、安全にご利用いただけます。'
+        }
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCreditCard'
+        }
+      }
+    ]
+  },
+  {
+    id: 'payment-creditcardCreateToken',
+    trigger: 'payment-creditcard',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCreditCard',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'creditToken'
+      }
+    ]
+  },
+  {
+    id: 'payment-paymentTime',
+    trigger: 'payment-creditcardCreateToken',
+    countable: false,
+    actions: [
+      {
+        human: false,
+        type: 'function',
+        function: 'isSelectedCreditCard',
+        whenReturn: {
+          true: 'continue',
+          false: 'skip'
+        }
+      },
+      {
+        human: false,
+        type: 'function',
+        function: 'paymentTimeChoices',
+      },
+      {
+        human: true,
+        type: 'component',
+        options: {
+          content: 'FormCustomSelect',
+          props: {
+            selects: [{
+              name: 'paymentTime',
+              title: '支払回数',
+              stored: true,
+              storedName: 'paymentTimeChoices'
+            }]
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'others-communication',
+    trigger: 'payment-paymentTime',
     countable: true,
     actions: [
       {
