@@ -14,7 +14,6 @@ const actions = {
   paymentMethods: async (data) => await paymentMethods(data),
   deliveryDateChoices: async (data) => await deliveryDateChoices(data),
   deliveryTimeChoices: async (data) => await deliveryTimeChoices(data),
-  isCashLess: async (data) => data.payment === '5',
   confirm: async (data) => await confirm(data),
   conversionPrepare: async (data) => await conversionPrepare(data),
   conversion: async (data) => await conversion(data),
