@@ -270,31 +270,8 @@ export const conversations = [
     ]
   },
   {
-    id: 'cashless',
-    trigger: 'deliveryPayment-payment',
-    actions: [
-      {
-        human: false,
-        type: 'function',
-        function: 'isCashLess',
-        whenReturn: {
-          false: 'skip',
-          true: 'continue'
-        }
-      },
-      {
-        human: false,
-        type: 'component',
-        options: {
-          content: 'CashLess',
-          icon: false
-        }
-      }
-    ]
-  },
-  {
     id: 'confirm',
-    trigger: 'cashless',
+    trigger: 'deliveryPayment-payment',
     actions: [
       {
         human: false,
