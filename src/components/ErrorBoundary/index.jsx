@@ -6,9 +6,9 @@ Bugsnag.start({
   apiKey: process.env.BUGSNAG_API_KEY,
   releaseStage: process.env.NODE_ENV,
   appVersion: process.env.COMMIT_REF,
-  plugins: [new BugsnagPluginReact(React)],
+  plugins: [new BugsnagPluginReact()],
 });
 Bugsnag.addMetadata('service', { code: process.env.SERVICE_CODE });
-const ErrorBoundary = Bugsnag.getPlugin('react');
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 export default ErrorBoundary;

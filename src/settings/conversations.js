@@ -22,6 +22,13 @@ export const conversations = [
         options: {
           content: '入力はたった90秒で完了です！'
         }
+      },
+      {
+        human: false,
+        type: 'message',
+        options: {
+          content: '通常のフォームでお手続きを行う場合には、右上のバツ印をクリックしてください。'
+        }
       }
     ]
   },
