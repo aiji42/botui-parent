@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ErrorBoundary from './components/ErrorBoundary';
-import ShouldStartChat from './components/ShouldStartChst';
-import Handshake from './components/Handshake';
+import ShouldStartChat from './components/ShouldStartChat';
 import Modal from './components/Modal';
 import MainField from './components/MainField';
+import Communicator from './components/Communicator';
+import ChatBot from './components/ChatBot';
 import { launchCondition } from './settings';
 
 if (launchCondition) {
@@ -15,9 +16,11 @@ if (launchCondition) {
     <ErrorBoundary>
       <ShouldStartChat>
         <Modal appElement={rootElment} >
-          <Handshake>
-            {(handshake) => <MainField {...handshake} />}
-          </Handshake>
+          <Communicator>
+            <ChatBot>
+              <MainField />
+            </ChatBot>
+          </Communicator>
         </Modal>
       </ShouldStartChat>
     </ErrorBoundary>,
