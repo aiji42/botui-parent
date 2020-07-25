@@ -8,11 +8,11 @@
     "@emotion/core": "^10.0.28",
     "body-scroll-lock": "^3.0.3",
     "libphonenumber-js": "^1.7.55",
-    "post-robot": "^10.0.37",
     "rc-progress": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-gtm-module": "^2.0.10",
+    "react-hook-post-robot": "^1.0.0",
     "react-modal": "^3.11.2",
     "react-spinners": "^0.9.0",
     "store": "^2.0.12"

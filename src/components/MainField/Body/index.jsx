@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import { PostRobotContext } from '../../../hooks/PostRobot';
+import { PostRobotContext } from 'react-hook-post-robot';
 
 const style = css`
   width: 100%;

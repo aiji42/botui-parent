@@ -1,5 +1,5 @@
 import React, { createContext, useState, useRef } from 'react';
-import { usePostRobotOn } from '../../hooks/PostRobot';
+import { usePostRobotOn } from 'react-hook-post-robot';
 import * as setting from '../../settings';
 import actions from '../../actions';
 import { percentage, remainingNumber, dataLayerPush } from './modules';
