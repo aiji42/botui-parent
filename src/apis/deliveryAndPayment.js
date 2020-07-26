@@ -1,7 +1,6 @@
 import { checkoutUserInfo } from './userInfo';
 import checkout from './checkout';
 
-
 export const paymentMethods = async (data) => {
   let checkouted = await checkout(data);
   if (checkouted.hasErrors) {

@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import Body from './Body';
 import Header from './Header';
 import Footer from './Footer';
 import Loading from './Loading';
 import { css } from '@emotion/core';
+import { ChatBotContext } from '../ChatBot';
 
 const header = css`
   height: 10%;
@@ -12,7 +12,7 @@ const header = css`
   height: calc(50px);
 `;
 
-const handshake = css`
+const body = css`
   height: 85%;
   height: -webkit-calc(100% - 50px - 40px) ;
   height: calc(100% - 50px - 40px);
@@ -24,22 +24,17 @@ const footer = css`
   height: calc(40px);
 `;
 
-const MainField = ({ handshakeChild, handshakeElement }) => {
-  const [loading, setLoading] = useState(true);
-  const onReady =  useCallback(() => { setLoading(false); }, []);
+const MainField = () => {
+  const { loading } = useContext(ChatBotContext);
+
   return (
     <>
       {loading && <Loading />}
       <Header css={header} />
-      <Body handshakeChild={handshakeChild} handshakeElement={handshakeElement} onReady={onReady} css={handshake} />
-      <Footer handshakeChild={handshakeChild} css={footer} />
+      <Body css={body} />
+      <Footer css={footer} />
     </>
   );
-};
-
-MainField.propTypes = {
-  handshakeChild: PropTypes.object,
-  handshakeElement: PropTypes.object
 };
 
 export default MainField;
