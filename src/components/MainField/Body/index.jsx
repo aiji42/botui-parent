@@ -1,37 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
+import { PostRobotContext } from 'react-hook-post-robot';
 
 const style = css`
   width: 100%;
 `;
 
-const chatStart = async (handshakeChild, onReady) => {
-  if (!handshakeChild) return;
-  const isReady = await handshakeChild.get('isReady');
-  if (isReady) {
-    handshakeChild.call('startChat');
-    onReady();
-  } else {
-    handshakeChild.on('readyToStartChat', () => {
-      handshakeChild.call('startChat');
-      onReady();
-    });
-  }
-};
-
-const Body = ({ handshakeChild, handshakeElement, onReady, css: cssStyle, ...props }) => {
-  useEffect(() => { chatStart(handshakeChild, onReady); }, [handshakeChild]);
+const Body = ({ css: cssStyle, ...props }) => {
+  const { init } = useContext(PostRobotContext);
+  const ref = useRef(null);
+  useEffect(() => { ref.current && init(ref.current.contentWindow); }, [ref]);
 
   return (
-    <div css={[style, cssStyle]} ref={handshakeElement} {...props}></div>
+    <div css={[style, cssStyle]} {...props}>
+      <iframe ref={ref} src={process.env.BOTUI_CHILD_ENDPOINT} height="100%" width="100%" frameBorder="no" />
+    </div>
   );
 };
 
 Body.propTypes = {
-  handshakeChild: PropTypes.object,
-  handshakeElement: PropTypes.object.isRequired,
-  onReady: PropTypes.func.isRequired,
   css: PropTypes.object,
 };
 
