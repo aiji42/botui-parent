@@ -1,3 +1,5 @@
+import image from '../../public/60s_blue.jpg'
+
 export const conversations = [
   {
     id: 'hello',
@@ -15,12 +17,18 @@ export const conversations = [
         options: {
           content: 'ご購入完了まで、私がお手伝いさせていただきます。'
         }
-      },
+      }
+    ]
+  },
+  {
+    id: 'promotion60s',
+    trigger: 'hello',
+    actions: [
       {
         human: false,
         type: 'message',
         options: {
-          content: '入力はたった90秒で完了です！'
+          content: `<img src="${image}" width="100%" />`
         }
       },
       {
@@ -34,7 +42,7 @@ export const conversations = [
   },
   {
     id: 'userInfo-gender',
-    trigger: 'hello',
+    trigger: 'promotion60s',
     countable: true,
     actions: [
       {
