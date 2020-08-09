@@ -1,4 +1,4 @@
-import image from '../../public/90s_blue.png';
+import image from '../../public/60s_blue.jpg';
 
 export const conversations = [
   {
@@ -21,7 +21,7 @@ export const conversations = [
     ]
   },
   {
-    id: 'promotion90s',
+    id: 'promotion60s',
     trigger: 'hello',
     actions: [
       {
@@ -42,7 +42,7 @@ export const conversations = [
   },
   {
     id: 'userInfo-name',
-    trigger: 'promotion90s',
+    trigger: 'promotion60s',
     countable: true,
     actions: [
       {
